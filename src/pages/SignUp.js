@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Header from "./Header";
+import Header from "../components/Header";
 import SignUpPopUp from "../popup/SignupPopup";
 import { useNavigate } from "react-router-dom";
-import { SignUpBg } from "./Bg";
+import SignUpBg from "../components/Bg";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +19,6 @@ const SignUp = () => {
   const [popUp, setPopUp] = useState(false);
   const navigate = useNavigate();
   // 오류 메시지 출력
-  const [nameMessage, setNameMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
@@ -158,10 +157,7 @@ const SignUp = () => {
       <Container className="login-wrapper" component="main" maxWidth="xs">
         <div className="box-wrapper">
           <div className="login-box">
-            <div className="signup-title">
-              회원가입
-              <AiOutlineClose id="modalCloseBtn" />
-            </div>
+            <div className="signup-title">회원가입</div>
             <form>
               <TextField
                 onKeyPress={handleEnter}

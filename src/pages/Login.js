@@ -1,25 +1,32 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Main from "./main";
+
 import Container from "@mui/material/Container";
 import { AiOutlineClose } from "react-icons/ai";
-import SignUp from "./SignUp";
-import { useNavigate, Routes, Route } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Header from "./Header";
-import axios from "axios";
+import Header from "../components/Header";
+import api from "../apis/axios";
 
 const Login = (props) => {
   let navigate = useNavigate();
+
+  // const [form, setForm] = useState({
+  //   id: "",
+  //   pw: "",
+  //   button: true,
+  //   idMessagge: "",
+  //   pwMessage: "",
+  //   isId: false,
+  //   idPw: false,
+  // });
+
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [button, setButton] = useState(true);
   const [idMessage, setIdMessage] = useState("");
   const [pwMessage, setPwMessage] = useState("");
   const [isId, setIsId] = useState(false);
@@ -63,19 +70,11 @@ const Login = (props) => {
   };
 
   const register = () => {
-    axios
-      .post(
-        "http://43.200.99.107:8080/login",
-        {
-          email: id,
-          password: pw,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json; charset=utf8",
-          },
-        }
-      )
+    api
+      .post("http://43.200.99.107:8080/login", {
+        email: id,
+        password: pw,
+      })
       .then((result) => {
         // if (result.message === "success") {
         console.log(result);
@@ -95,10 +94,7 @@ const Login = (props) => {
       <Container className="login-wrapper" component="main" maxWidth="xs">
         <div className="box-wrapper">
           <div className="login-box">
-            <div className="login-title">
-              로그인창
-              <AiOutlineClose id="loginCloseBtn" />
-            </div>
+            <div className="login-title">로그인창</div>
             <form className="signup-form">
               <TextField
                 onChange={onChangeId}
@@ -139,11 +135,7 @@ const Login = (props) => {
                 </span>
               )}
             </form>
-            {/* <FormControlLabel
-              className="FormControlLabel"
-              control={<Checkbox value="remember" color="primary" />}
-              label="저장하기"
-            /> */}
+
             <Button
               type="submit"
               fullWidth

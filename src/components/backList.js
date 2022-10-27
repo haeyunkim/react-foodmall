@@ -2,7 +2,7 @@ const BackList = [
   {
     id: 0,
     image1:
-      "https://steemitimages.com/DQmQwJ6sg2LRsNmYB917hiq2k1qFVd19B6AnwStU1os75rF/20180203_181957.jpg",
+      "https://mp-seoul-image-production-s3.mangoplate.com/16906/2133668_1660539301017_62573",
     image2:
       "https://mp-seoul-image-production-s3.mangoplate.com/16906/reviews/58da5388d44e.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
     image3:

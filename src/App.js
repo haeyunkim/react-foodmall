@@ -8,6 +8,9 @@ import FoodList from "./pages/foodList";
 import FoodDetail from "./pages/FoodDetail";
 import { useState } from "react";
 import BackList from "./components/backList";
+import FoodGu from "./pages/FoodGu";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   return (
@@ -21,7 +24,12 @@ function App() {
           path="/foodList/detail/:id"
           element={<FoodDetail BackList={BackList} />}
         />
+        <Route path="/foodList/gu/:id" element={<FoodGu />} />
       </Routes>
+      <script
+        src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
+        crossorigin
+      ></script>
     </div>
   );
 }

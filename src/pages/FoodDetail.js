@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { Container, Row, Col } from "react-bootstrap";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const FoodDetail = ({ BackList }) => {
@@ -10,6 +10,8 @@ const FoodDetail = ({ BackList }) => {
   let findShop = BackList.find((item, i) => {
     return item.id === Number(id);
   });
+
+  const [selectLat, setSelectLat] = useState({});
 
   const lat = [
     {
@@ -70,7 +72,7 @@ const FoodDetail = ({ BackList }) => {
             width="50%"
           />
           <div className="col back-detail-img1">
-            <BackdMap lat={lat} />
+            <BackdMap lat={lat} id={id} />
           </div>
         </section>
       </div>
@@ -112,24 +114,29 @@ const FoodDetail = ({ BackList }) => {
   );
 };
 
-const BackdMap = ({ lat }) => {
+const BackdMap = ({ lat, id }) => {
   return (
     <>
-      {lat.map((item, i) => {
-        return (
-          <Map
-            center={{ lat: Number(item.lat1), lng: Number(item.lng1) }}
-            style={{ width: "100%", height: "300px" }}
-          >
-            <MapMarker
-              position={{
-                lat: Number(item.lat2),
-                lng: Number(item.lng2),
-              }}
-            ></MapMarker>
-          </Map>
-        );
-      })}
+      {lat.map((item, i) => (
+        <>
+          {item.id === Number(id) && (
+            <>
+              <Map
+                center={{ lat: Number(item.lat1), lng: Number(item.lng1) }}
+                style={{ width: "100%", height: "300px" }}
+                key={i}
+              >
+                <MapMarker
+                  position={{
+                    lat: Number(item.lat2),
+                    lng: Number(item.lng2),
+                  }}
+                ></MapMarker>
+              </Map>
+            </>
+          )}
+        </>
+      ))}
     </>
   );
 };

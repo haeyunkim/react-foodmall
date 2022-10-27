@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Routes, Route } from "react-router-dom";
 import FoodDetail from "./FoodDetail";
+import "./FoodList.css";
 
 const FoodList = () => {
   const [data, setData] = useState(Data);
@@ -161,7 +162,14 @@ const FoodList = () => {
             {list.map((item, i) => {
               return (
                 <div className="gu-list1 col" key={i}>
-                  <img className="gu-img" src={item.image} width="50%" />
+                  <img
+                    className="gu-img"
+                    src={item.image}
+                    width="50%"
+                    onClick={() => {
+                      navigate(`/foodList/gu/${i}`);
+                    }}
+                  />
                   <p className="gu-title">{item.name}</p>
                 </div>
               );

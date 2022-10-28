@@ -53,6 +53,8 @@ const Header = () => {
                 맛집리스트
               </Nav.Link>
               {loginStatus ? (
+                <Nav.Link onClick={openModal}>회원정보수정</Nav.Link>
+              ) : (
                 <Nav.Link
                   onClick={() => {
                     navigate("/login");
@@ -60,8 +62,6 @@ const Header = () => {
                 >
                   Login
                 </Nav.Link>
-              ) : (
-                <Nav.Link onClick={openModal}>회원정보수정</Nav.Link>
               )}
             </Nav>
           </div>

@@ -14,11 +14,11 @@ ul.pagination li a {
 }
 
 ul.pagination li.active a {
-  color: red;
-  font-size: 20px;
+  color: blue;
   position: relative;
   bottom: 5px;
+  font-size: 20px;
 }
 ul.pagination li a:hover {
-  color: #69a07e;
+  color: blue;
 }

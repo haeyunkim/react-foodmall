@@ -5,7 +5,7 @@ const Slide = () => {
   let navigate = useNavigate();
 
   return (
-    <Carousel>
+    <Carousel id="slide-container">
       <Carousel.Item>
         <img
           className="d-block"

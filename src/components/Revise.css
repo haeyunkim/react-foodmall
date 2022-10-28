@@ -1,0 +1,91 @@
+.revise-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.revise-container {
+  position: fixed;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 550px;
+  width: 600px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 20px;
+  border: 1px solid black;
+  z-index: 999;
+  background-color: #fff;
+}
+.revise-title-wrapper {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.revise-title {
+  letter-spacing: 0px;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px;
+}
+.revise-close-btn {
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  background-color: #fff;
+}
+
+.revise-body {
+  border-bottom: 1px solid #dbdbdb;
+  height: 350px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.revise-item {
+  margin: 0 0 40px;
+}
+.revise-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+.revise-input-name {
+  position: relative;
+  left: 53px;
+  border-radius: 3px;
+  width: 240px;
+}
+.revise-input-name:focus,
+.revise-input-number:focus,
+.revise-input-pw:focus,
+.revise-input-birth:focus {
+  outline-color: #999999;
+  border-radius: 3px;
+}
+.revise-input-number {
+  position: relative;
+  left: 5px;
+  width: 240px;
+  border-radius: 3px;
+}
+.revise-input-pw,
+.revise-input-birth {
+  position: relative;
+  left: 25px;
+  border-radius: 3px;
+  width: 240px;
+}
+.revise-basic-button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 20px;
+  background-color: linear-gradient(45deg, #666666, #999999);
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.Footer {
+  color: white;
+}

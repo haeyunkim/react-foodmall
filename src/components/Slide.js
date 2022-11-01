@@ -1,5 +1,6 @@
 import { Carousel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "./Slide.css";
 
 const Slide = () => {
   let navigate = useNavigate();

@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Hi+Melody&family=Poor+Story&display=swap");
 /* footer */
-
+body {
+  font-family: "Hi Melody", cursive;
+  font-weight: 700;
+}
 .footer-wrap {
   min-width: 1070px;
   height: 208px;

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+
 body {
   margin: 0px;
   padding: 0px;
@@ -15,6 +17,7 @@ body {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
+
 .signup-bg {
   background-image: url("imgs/singupbg.png");
   height: 100vh;
@@ -43,22 +46,37 @@ body {
   left: 400px;
   bottom: 298px;
 }
-.login-title {
+.login-title-container {
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid black;
+}
+.login-title {
   font-size: 20px;
   font-weight: 400;
   color: black;
+  font-family: "Poor Story", cursive;
+}
+.login-close-btn {
+  border: none;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  bottom: 3px;
 }
 .login-wrapper {
-  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10px;
   position: fixed;
   z-index: 999;
   width: 300px;
-  height: 330px;
+  height: 360px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  padding: 20px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 150px;
@@ -121,6 +139,7 @@ body {
   margin-top: 15px;
   font-size: 20px;
   font-weight: 500;
+  font-family: "Poor Story", cursive;
 }
 #check-pw {
   margin-top: 12px;
@@ -149,50 +168,60 @@ body {
 }
 .message {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 13px;
   margin-top: 10px;
 }
 .success {
   color: blue;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
+  cursor: none;
 }
 .error {
   color: #ff2727;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
+  cursor: none;
 }
 .success-email {
   color: blue;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
   position: relative;
   bottom: 5px;
+  cursor: none;
 }
 .error-email {
   color: #ff2727;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
   position: relative;
   bottom: 5px;
+  cursor: none;
 }
 .success-email2 {
   color: blue;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
   position: relative;
   bottom: 8px;
+  cursor: none;
 }
 .error-email2 {
   color: #ff2727;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
   position: relative;
   bottom: 8px;
+  cursor: none;
 }
 .d-block {
   width: 100%;
   height: 400px;
   background-size: cover;
   cursor: pointer;
+}
+
+.signUp-footer-wrapper {
+  border-top: 1px solid #6c757d;
 }

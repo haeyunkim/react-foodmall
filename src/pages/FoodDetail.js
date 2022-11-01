@@ -123,7 +123,10 @@ const BackdMap = ({ lat, id }) => {
             <>
               <Map
                 center={{ lat: Number(item.lat1), lng: Number(item.lng1) }}
-                style={{ width: "100%", height: "300px" }}
+                style={{
+                  width: "100%",
+                  height: "300px",
+                }}
                 key={i}
               >
                 <MapMarker
@@ -131,6 +134,7 @@ const BackdMap = ({ lat, id }) => {
                     lat: Number(item.lat2),
                     lng: Number(item.lng2),
                   }}
+                  key={i + 1}
                 ></MapMarker>
               </Map>
             </>

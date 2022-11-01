@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { AiOutlineClose } from "react-icons/ai";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Header from "../components/Header";
 import SignUpPopUp from "../popup/SignupPopup";
 import { useNavigate } from "react-router-dom";
 import SignUpBg from "../components/Bg";
+import Footer from "../components/Footer";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -118,7 +118,7 @@ const SignUp = () => {
     // }
     axios
       .post(
-        "http://43.200.99.107:8080/signup",
+        "http://43.200.99.107:8080/join",
         {
           email: email,
           password: pw,
@@ -133,16 +133,14 @@ const SignUp = () => {
         }
       )
       .then((res) => {
-        if (res.data === "SUCCESS") {
-          console.log(res);
-          console.log("success");
-          localStorage.setItem("signupData", JSON.stringify(res.data));
-          window.alert("회원가입에 성공했습니다.");
-          navigate("/");
-        }
+        console.log(res);
+        console.log("success");
+        localStorage.setItem("signupData", JSON.stringify(res.data));
+        window.alert("회원가입에 성공했습니다.");
+        navigate("/");
       })
       .catch((error) => {
-        console.log("error");
+        window.alert("중복된 아이디값입니다.");
       });
   };
 
@@ -151,12 +149,9 @@ const SignUp = () => {
       <div>
         <Header />
       </div>
-      <div>
-        <SignUpBg />
-      </div>
-      <Container className="login-wrapper" component="main" maxWidth="xs">
+      <Container className="signUp-wrapper" component="main" maxWidth="xs">
         <div className="box-wrapper">
-          <div className="login-box">
+          <div className="signUp-box">
             <div className="signup-title">회원가입</div>
             <form>
               <TextField
@@ -173,9 +168,7 @@ const SignUp = () => {
               />
               {email.length > 0 && (
                 <span
-                  className={`message ${
-                    isEmail ? "success-email" : "error-email"
-                  }`}
+                  className={` ${isEmail ? "success-email" : "error-email"}`}
                 >
                   {emailMessage}
                 </span>
@@ -290,7 +283,9 @@ const SignUp = () => {
           <div className="modal-layer"></div>
         </div>
       </Container>
-      {popUp && <SignUpPopUp popUp={popUp} setPopUp={setPopUp} />}
+      <div className="signUp-footer-wrapper">
+        <Footer />
+      </div>
     </>
   );
 };

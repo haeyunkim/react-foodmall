@@ -1,0 +1,66 @@
+.popup-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+.findid-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.findid-container {
+  position: fixed;
+  flex-direction: column;
+  height: 400px;
+  width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 20px;
+  border: 1px solid black;
+  z-index: 999;
+  background-color: #fff;
+  display: flex;
+  border-radius: 10px;
+}
+.findid-title-wrapper {
+  display: flex;
+}
+.findid-title-item1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.findid-title {
+  position: relative;
+  top: 10px;
+}
+.findid-close-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+.findid-close-btn {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  border: none;
+  background-color: #fff;
+}
+#findid-name-wrapper {
+  position: relative;
+  top: 30px;
+}
+#findid-date-wrapper {
+  position: relative;
+  top: 30px;
+}
+#findid-number-wrapper {
+  position: relative;
+  top: 30px;
+}
+#findid-btn {
+  position: relative;
+  top: 30px;
+}

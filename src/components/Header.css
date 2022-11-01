@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+
+#taste-daejeon-wrapper {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-family: "Poor Story", cursive;
+}
+#taste-daejeon-wrapper:hover {
+  transform: scale(1.05);
+}
+#taste-daejeon-wrapper:hover {
+  color: darkcyan;
+}
+#main-nav-item {
+  color: black;
+  font-weight: bold;
+  font-family: "Poor Story", cursive;
+}
+#main-nav-item:hover {
+  color: darkcyan;
+}

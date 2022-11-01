@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+
 .revise-wrapper {
   display: flex;
   justify-content: center;
@@ -7,25 +9,41 @@
   position: fixed;
   flex-direction: column;
   align-items: flex-start;
-  height: 550px;
-  width: 600px;
+  height: 560px;
+  width: 500px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-top: 20px;
   border: 1px solid black;
   z-index: 999;
   background-color: #fff;
+  border-radius: 10px;
 }
 .revise-title-wrapper {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  font-family: "Poor Story", cursive;
+}
+.revise-title-item1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+.revise-taste-daejeon {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 130px;
 }
 .revise-title {
   letter-spacing: 0px;
   font-size: 20px;
   font-weight: 700;
   padding: 10px;
+  text-align: center;
+  width: 100%;
 }
 .revise-close-btn {
   width: 30px;
@@ -43,49 +61,48 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  /* margin-top: 20px; */
 }
-.revise-item {
-  margin: 0 0 40px;
-}
+
 .revise-name {
   font-size: 15px;
   font-weight: 600;
 }
-.revise-input-name {
+#revise-email-container,
+#revise-pw-container,
+#revise-name-container,
+#revise-date-container,
+#revise-num-container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.revise-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+#revise-btn {
   position: relative;
-  left: 53px;
-  border-radius: 3px;
-  width: 240px;
+  top: 5px;
+  width: 400px;
 }
-.revise-input-name:focus,
-.revise-input-number:focus,
-.revise-input-pw:focus,
-.revise-input-birth:focus {
-  outline-color: #999999;
-  border-radius: 3px;
+.message {
+  font-weight: bold;
+  font-size: 10px;
 }
-.revise-input-number {
+.success {
+  left: 10px;
+  color: blue;
+  font-size: 13px;
+  font-weight: 800;
+}
+.error {
   position: relative;
-  left: 5px;
-  width: 240px;
-  border-radius: 3px;
-}
-.revise-input-pw,
-.revise-input-birth {
-  position: relative;
-  left: 25px;
-  border-radius: 3px;
-  width: 240px;
-}
-.revise-basic-button {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 20px;
-  background-color: linear-gradient(45deg, #666666, #999999);
-  color: black;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-.Footer {
-  color: white;
+  left: 10px;
+  color: #ff2727;
+  font-size: 13px;
+  font-weight: 800;
 }

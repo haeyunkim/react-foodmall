@@ -185,7 +185,6 @@ const Login = ({
               </div>
             </div>
           </Container>
-          <FindId />
         </div>
       ) : (
         <></>

@@ -1,7 +1,12 @@
 import { TextField, Button } from "@mui/material";
+import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import { json } from "react-router-dom";
+import { ThemeConsumer } from "styled-components";
 import "./FindId.css";
+
 const FindId = ({ findIdModal, findIdCloseModal }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -9,8 +14,35 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      // handleLookUp();
+      handleLookUp();
     }
+  };
+
+  const handleLookUp = () => {
+    if (name === "") {
+      window.alert("이름을 입력하세요");
+    }
+    if (date === "") {
+      window.alert("생년월일을 입력하세요");
+    }
+    if (num === "") {
+      window.alert("핸드폰 번호를 입력하세요");
+    }
+
+    axios
+      .post("", {
+        name: name,
+        date: date,
+        num: num,
+      })
+      .then((res) => {
+        console.log(res.data);
+        const accessToken = res.data.key;
+        window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -90,7 +122,7 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
               <Button
                 id="findid-btn"
                 onClick={() => {
-                  // handleLookUp();
+                  handleLookUp();
                 }}
                 className="checkBtn"
                 type="submit"

@@ -58,6 +58,16 @@ const Header = () => {
     }
   }, []);
 
+  //테스트 값
+  useEffect(() => {
+    window.localStorage.setItem("user", [
+      { email: "2ghldbs2311@naver.com" },
+      { pw: "gosdbs747!" },
+      { name: "김회윤" },
+      { number: "01025579671" },
+    ]);
+  }, []);
+
   return (
     <div className="main">
       <Navbar id="navbar-wrapper">

@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import "./FindPw.css";
+import axios from "axios";
 
 const FindPw = ({ findPwModal, findPwCloseModal }) => {
   const [email, setEmail] = useState("");
@@ -11,8 +12,41 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      // handleLookUp();
+      handleLookUp();
     }
+  };
+
+  const handleLookUp = () => {
+    if (email === "") {
+      window.alert("이메일을 입력하세요");
+    }
+    if (name === "") {
+      window.alert("이름을 입력하세요");
+    }
+    if (num === "") {
+      window.alert("휴대폰 번호를 입력하세요");
+    }
+    if (date === "") {
+      window.alert("생년월일을 입력하세요");
+    }
+    console.log("enter");
+
+    axios
+      .post("http://43.200.99.107:8080/login", {
+        email: email,
+        name: name,
+        num: num,
+        date: date,
+      })
+      .then((res) => {
+        console.log(res.data);
+        const refreshToken = res.data.refreshToken;
+        const accessToken = res.data.key;
+        window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>
@@ -109,7 +143,7 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
               <Button
                 id="findPw-btn"
                 onClick={() => {
-                  // handleLookUp();
+                  handleLookUp();
                 }}
                 className="checkBtn"
                 type="submit"

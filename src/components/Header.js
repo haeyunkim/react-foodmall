@@ -10,6 +10,7 @@ import { changeLogin } from "../store/isLogin";
 import "./Header.css";
 import FindId from "./FindId";
 import FindPw from "./FindPw";
+import SignUp from "./SignUp";
 
 const Header = () => {
   let navigate = useNavigate();
@@ -18,6 +19,7 @@ const Header = () => {
   const [loginModal, setLoginModal] = useState(false);
   const [findIdModal, setFindIdModal] = useState(false);
   const [findPwModal, setFindPwModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(false);
 
   const loginOpenModal = () => {
     setLoginModal(true);
@@ -50,6 +52,15 @@ const Header = () => {
   const findPwCloseModal = () => {
     setFindPwModal(false);
   };
+
+  const signUpOpenModal = () => {
+    setSignUpModal(true);
+    setLoginModal(false);
+  };
+  const signUpCloseModal = () => {
+    setSignUpModal(false);
+  };
+
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       setLoginStatus(true);
@@ -144,7 +155,11 @@ const Header = () => {
         findPwModal={findPwModal}
         findPwCloseModal={findPwCloseModal}
         findPwOpenModal={findPwOpenModal}
+        signUpCloseModal={signUpCloseModal}
+        signUpOpenModal={signUpOpenModal}
+        signUpModal={signUpModal}
       />
+      <SignUp signUpModal={signUpModal} signUpCloseModal={signUpCloseModal} />
       <FindId findIdModal={findIdModal} findIdCloseModal={findIdCloseModal} />
       <FindPw findPwModal={findPwModal} findPwCloseModal={findPwCloseModal} />
 
@@ -152,6 +167,7 @@ const Header = () => {
       {loginModal ? <div className="popup-bg"></div> : <></>}
       {findIdModal ? <div className="popup-bg"></div> : <></>}
       {findPwModal ? <div className="popup-bg"></div> : <></>}
+      {signUpModal ? <div className="popup-bg"></div> : <></>}
     </div>
   );
 };

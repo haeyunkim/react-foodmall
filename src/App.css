@@ -144,8 +144,9 @@ body {
 #check-pw {
   margin-top: 12px;
 }
-#date {
-  color: #6c757d;
+.jumin-area {
+  position: relative;
+  bottom: 15px;
 }
 .check-md {
   display: flex;

@@ -56,7 +56,9 @@
   position: relative;
   top: 20px;
 }
-#findPw-date-wrapper {
+#findpw-jumin-wrapper {
+  display: flex;
+  align-items: center;
   position: relative;
   top: 20px;
 }

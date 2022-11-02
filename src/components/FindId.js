@@ -9,8 +9,24 @@ import "./FindId.css";
 
 const FindId = ({ findIdModal, findIdCloseModal }) => {
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
+  const [jumin1, setJumin1] = useState("");
+  const [jumin2, setJumin2] = useState("");
   const [num, setNum] = useState("");
+
+  const onlyKorean = (e) => {
+    if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
+      e.target.value = e.target.value.replace(
+        /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g,
+        ""
+      );
+    }
+  };
+
+  const onlyNumber = (e) => {
+    if (e.key.match(/[^0-9]/g)) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    }
+  };
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -22,8 +38,8 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
     if (name === "") {
       window.alert("이름을 입력하세요");
     }
-    if (date === "") {
-      window.alert("생년월일을 입력하세요");
+    if (jumin1 === "" || jumin2 === "") {
+      window.alert("주민번호를 입력하세요");
     }
     if (num === "") {
       window.alert("핸드폰 번호를 입력하세요");
@@ -32,7 +48,8 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
     axios
       .post("", {
         name: name,
-        date: date,
+        jumin1: jumin1,
+        jumin2: jumin2,
         num: num,
       })
       .then((res) => {
@@ -69,6 +86,7 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
               <form>
                 <div id="findid-name-wrapper">
                   <TextField
+                    onKeyUp={onlyKorean}
                     onKeyPress={handleEnter}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -84,26 +102,48 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
                   />
                 </div>
 
-                <div id="findid-date-wrapper">
-                  <TextField
-                    onKeyPress={handleEnter}
-                    onChange={(e) => {
-                      setDate(e.target.value);
-                    }}
-                    type="date"
-                    className="TextField date-input"
-                    id="findid-date"
-                    margin="normal"
-                    // label="birth"
-                    required
-                    fullWidth
-                    name="birth"
-                    autoComplete="birth"
-                  />
+                <div id="findid-jumin-wrapper">
+                  <div className="revise-jumin1-container">
+                    <TextField
+                      onKeyPress={handleEnter}
+                      onChange={(e) => {
+                        setJumin1(e.target.value);
+                      }}
+                      onKeyUp={onlyNumber}
+                      className="TextField jumin-input"
+                      id="date"
+                      margin="normal"
+                      label="주민번호 앞자리"
+                      required
+                      fullWidth
+                      name="jumin1"
+                      autoComplete="주민번호"
+                    />
+                  </div>
+                  <div>-</div>
+                  <div className="revise-jumin2-container">
+                    <TextField
+                      onKeyPress={handleEnter}
+                      onChange={(e) => {
+                        setJumin2(e.target.value);
+                      }}
+                      onKeyUp={onlyNumber}
+                      type="password"
+                      className="TextField jumin-input"
+                      id="date"
+                      margin="normal"
+                      label="주민번호 뒷자리"
+                      required
+                      fullWidth
+                      name="jumin2"
+                      autoComplete="주민번호"
+                    />
+                  </div>
                 </div>
 
                 <div id="findid-number-wrapper">
                   <TextField
+                    onKeyUp={onlyNumber}
                     onKeyPress={handleEnter}
                     onChange={(e) => {
                       setNum(e.target.value);

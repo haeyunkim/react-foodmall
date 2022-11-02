@@ -10,7 +10,9 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
   const [num, setNum] = useState("");
   const [pw, setPw] = useState("");
   const [checkPw, setCheckPw] = useState("");
-  const [date, setDate] = useState("");
+  const [jumin1, setJumin1] = useState("");
+  const [jumin2, setJumin2] = useState("");
+
   // 오류 메세지 출력
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
@@ -52,10 +54,27 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
       setIsNumber(true);
     }
   };
+
+  const onlyKorean = (e) => {
+    if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
+      e.target.value = e.target.value.replace(
+        /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g,
+        ""
+      );
+    }
+  };
+
+  const onlyNumber = (e) => {
+    if (e.key.match(/[^0-9]/g)) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    }
+  };
+
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       handleRevise();
     }
+    console.log("enter");
   };
 
   const handleRevise = () => {
@@ -138,6 +157,7 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
 
               <div id="revise-name-container">
                 <TextField
+                  onKeyUp={onlyKorean}
                   onKeyPress={handleEnter}
                   onChange={(e) => {
                     setName(e.target.value);
@@ -153,27 +173,50 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
                 />
               </div>
 
-              <div id="revise-date-container">
-                <TextField
-                  onKeyPress={handleEnter}
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                  }}
-                  type="date"
-                  className="TextField date-input"
-                  id="date revise-date"
-                  margin="normal"
-                  // label="birth"
-                  required
-                  fullWidth
-                  name="birth"
-                  autoComplete="birth"
-                />
+              <div id="revise-jumin-container">
+                <div className="revise-jumin1-wrapper">
+                  <TextField
+                    onKeyPress={handleEnter}
+                    onChange={(e) => {
+                      setJumin1(e.target.value);
+                    }}
+                    onKeyUp={onlyNumber}
+                    className="TextField jumin-input"
+                    id="date"
+                    margin="normal"
+                    label="주민번호 앞자리"
+                    required
+                    fullWidth
+                    name="jumin1"
+                    autoComplete="주민번호"
+                  />
+                </div>
+                <div>-</div>
+                <div className="revise-jumin2-wrapper">
+                  <TextField
+                    onKeyPress={handleEnter}
+                    onChange={(e) => {
+                      setJumin2(e.target.value);
+                    }}
+                    onKeyUp={onlyNumber}
+                    type="password"
+                    className="TextField jumin-input"
+                    id="date"
+                    margin="normal"
+                    label="주민번호 뒷자리"
+                    required
+                    fullWidth
+                    name="jumin2"
+                    autoComplete="주민번호"
+                  />
+                </div>
               </div>
+
               <div id="revise-num-container">
                 <TextField
                   onKeyPress={handleEnter}
                   onChange={onchangeNumber}
+                  onKeyUp={onlyNumber}
                   className="TextField number-input"
                   margin="normal"
                   id="revise-num"

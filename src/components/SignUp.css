@@ -1,0 +1,48 @@
+.jumin-area {
+  display: flex;
+  align-items: center;
+}
+.popup-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+.signup-big-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 60px;
+}
+#signUp-wrapper {
+  position: fixed;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 20px;
+  z-index: 999;
+  background-color: #fff;
+  margin: 0 auto;
+}
+.signup-title-wrapper {
+  display: flex;
+}
+.signup-title-item1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.signup-close-btn {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  border: none;
+  background-color: #fff;
+}
+.signup-close-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}

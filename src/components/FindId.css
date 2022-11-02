@@ -52,7 +52,9 @@
   position: relative;
   top: 30px;
 }
-#findid-date-wrapper {
+#findid-jumin-wrapper {
+  display: flex;
+  align-items: center;
   position: relative;
   top: 30px;
 }

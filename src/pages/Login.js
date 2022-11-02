@@ -24,6 +24,9 @@ const Login = ({
   findPwCloseModal,
   findPwModal,
   findPwOpenModal,
+  signUpModal,
+  signUpOpenModal,
+  signUpCloseModal,
 }) => {
   let navigate = useNavigate();
   const [id, setId] = useState("");
@@ -82,7 +85,7 @@ const Login = ({
         const refreshToken = res.data.refreshToken;
         const accessToken = res.data.key;
 
-        window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        // window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
 
         window.alert("로그인에 성공했습니다.");
         navigate("/");
@@ -172,12 +175,7 @@ const Login = ({
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link
-                      onClick={() => {
-                        navigate("/signup");
-                      }}
-                      className="findPw"
-                    >
+                    <Link onClick={signUpOpenModal} className="findPw">
                       회원가입하시겠습니까?
                     </Link>
                   </Grid>

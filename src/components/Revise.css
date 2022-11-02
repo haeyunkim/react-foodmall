@@ -69,16 +69,27 @@
   font-size: 15px;
   font-weight: 600;
 }
+#revise-jumin-container {
+  position: relative;
+  left: 37px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
 #revise-email-container,
 #revise-pw-container,
 #revise-name-container,
-#revise-date-container,
 #revise-num-container {
   width: 400px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+}
+.revise-jumin2-wrapper,
+.revise-jumin1-wrapper {
+  width: 197px;
 }
 .revise-btn-wrapper {
   display: flex;

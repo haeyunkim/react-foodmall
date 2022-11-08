@@ -7,38 +7,25 @@ import { json } from "react-router-dom";
 import { ThemeConsumer } from "styled-components";
 import "./FindId.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import FindIdConfirm from "./FindIdConfirm";
+import findIdConfirm from "./FindIdConfirm";
 
-// const FindIdSmModal = ({ smShow, setSmShow }) => {
-//   return (
-//     <>
-//       <Modal
-//         size="sm"
-//         show={smShow}
-//         onHide={() => setSmShow(false)}
-//         aria-labelledby="example-modal-sizes-title-sm"
-//       >
-//         <Modal.Header closeButton>
-//           <Modal.Title id="example-modal-sizes-title-sm">
-//             Small Modal
-//           </Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>...</Modal.Body>
-//       </Modal>
-//     </>
-//   );
-// };
-
-const FindId = ({
-  findIdModal,
-  findIdCloseModal,
-  // findIdConfirmOpenModal,
-  // findIdConfirmCloseModal,
-  // findIdConfirm
-}) => {
+const FindId = ({ findIdModal, findIdCloseModal }) => {
   const [name, setName] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
   const [num, setNum] = useState("");
+  const [findIdConfirmModal, setFindIdConfirmModal] = useState(false);
+  const [myId, setMyId] = useState("");
+
+  const findIdConfirmOpenModal = () => {
+    findIdCloseModal();
+    setFindIdConfirmModal(true);
+  };
+  const findIdConfirmCloseModal = () => {
+    setFindIdConfirmModal(false);
+  };
 
   const onlyKorean = (e) => {
     if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
@@ -71,7 +58,6 @@ const FindId = ({
     if (num === "") {
       window.alert("핸드폰 번호를 입력하세요");
     }
-
     axios
       .post("http://43.200.99.107:8080/member/findEmail", {
         name: name,
@@ -80,10 +66,12 @@ const FindId = ({
       })
 
       .then((res) => {
-        window.alert(res.data);
         console.log(res);
+        setMyId(res.data);
+        findIdConfirmOpenModal();
       })
       .catch((err) => {
+        window.alert("일치하는 정보가 없습니다");
         console.log(err);
       });
   };
@@ -204,6 +192,12 @@ const FindId = ({
       ) : (
         <></>
       )}
+      <FindIdConfirm
+        findIdConfirmCloseModal={findIdConfirmCloseModal}
+        findIdConfirmModal={findIdConfirmModal}
+        myId={myId}
+      />
+      {findIdConfirmModal ? <div className="popup-bg"></div> : <></>}
     </>
   );
 };

@@ -5,8 +5,7 @@ import { useState } from "react";
 import Revise from "./Revise";
 import axios from "axios";
 import Login from "../pages/Login";
-import { useDispatch, useSelector } from "react-redux";
-import { changeLogin } from "../store/isLogin";
+import { changeLogin } from "../store/ModalSlice";
 import "./Header.css";
 import FindId from "./FindId";
 import FindPw from "./FindPw";
@@ -21,7 +20,7 @@ const Header = () => {
   const [findIdModal, setFindIdModal] = useState(false);
   const [findPwModal, setFindPwModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
-  const [findIdConfirm, setFindIdConfirm] = useState(false);
+  const [myEmail, setMyEmail] = useState("");
 
   const loginOpenModal = () => {
     setLoginModal(true);
@@ -40,6 +39,8 @@ const Header = () => {
       })
       .then((res) => {
         console.log("success");
+        setMyEmail(res.data.email);
+        console.log(myEmail);
       })
       .catch((err) => {
         console.log(err);
@@ -156,6 +157,7 @@ const Header = () => {
         reviseOpenModal={reviseOpenModal}
         reviseCloseModal={reviseCloseModal}
         reviseModal={reviseModal}
+        myEmail={myEmail}
       />
       <Login
         loginOpenModal={loginOpenModal}
@@ -195,7 +197,6 @@ const Header = () => {
       {findIdModal ? <div className="popup-bg"></div> : <></>}
       {findPwModal ? <div className="popup-bg"></div> : <></>}
       {signUpModal ? <div className="popup-bg"></div> : <></>}
-      {/* {findIdConfirm ? <div className="popup-bg"></div> : <></>} */}
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user from "./store/loginState";
+import modalReducer from "./store/ModalSlice";
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
-    user: user.reducer,
+    modal: modalReducer,
   },
 });

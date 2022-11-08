@@ -11,6 +11,7 @@ const Revise = ({
   reviseCloseModal,
   reviseModal,
   setLoginStatus,
+  myEmail,
 }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -89,7 +90,7 @@ const Revise = ({
         "http://43.200.99.107:8080/member/update",
         {
           backRrn: jumin2,
-          email: email,
+          email: myEmail,
           password: pw,
           frontRrn: jumin1,
           name: name,
@@ -104,7 +105,8 @@ const Revise = ({
         }
       )
       .then((res) => {
-        console.log(res);
+        window.alert("회원정보수정이 완료되었습니다");
+        reviseCloseModal();
       })
       .catch((err) => {
         reviseCloseModal();
@@ -157,13 +159,16 @@ const Revise = ({
                   id="revise-email"
                   margin="normal"
                   label="Email Address"
+                  value={myEmail}
                   required
                   fullWidth
                   name="email"
                   autoComplete="email"
-                  // disabled
                 />
               </div>
+              <span className="dontChangeEmail">
+                이메일은 변경할 수 없습니다
+              </span>
 
               <div id="revise-pw-container">
                 <TextField
@@ -272,7 +277,7 @@ const Revise = ({
               <Button
                 id="revise-btn"
                 onClick={() => {
-                  // handleLookUp();
+                  handleRevise();
                 }}
                 className="checkBtn"
                 type="submit"
@@ -280,7 +285,7 @@ const Revise = ({
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                조회하기
+                수정하기
               </Button>
             </div>
           </section>

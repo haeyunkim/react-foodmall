@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
-
+#slide-container {
+  margin: 0;
+  padding: 0;
+}
 #taste-daejeon-wrapper {
   display: flex;
   align-items: center;
@@ -12,11 +15,37 @@
 #taste-daejeon-wrapper:hover {
   color: darkcyan;
 }
-#main-nav-item {
+#main-nav-item-1,
+#main-nav-item-2,
+#main-nav-item-3,
+#main-nav-item-4 {
   color: black;
   font-weight: bold;
   font-family: "Poor Story", cursive;
 }
-#main-nav-item:hover {
+#main-nav-item-1:hover {
   color: darkcyan;
+}
+#main-nav-item-2:hover {
+  color: darkcyan;
+}
+#main-nav-item-3:hover {
+  color: darkcyan;
+}
+#main-nav-item-4:hover {
+  color: darkcyan;
+}
+#main-nav-item-2 {
+}
+.main-nav-item-wrapper {
+  display: flex;
+  align-items: flex-end;
+  padding: 0px;
+  width: 100vw;
+}
+
+.me-auto {
+  display: flex;
+  justify-content: end;
+  width: 100%;
 }

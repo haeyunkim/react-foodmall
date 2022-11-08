@@ -126,13 +126,13 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
     }
     axios
       .post(
-        "http://43.200.99.107:8080/join",
+        "http://43.200.99.107:8080/member/join",
         {
           email: email,
           password: pw,
           name: name,
-          frontRRN: jumin1,
-          backRRN: jumin2,
+          frontRrn: jumin1,
+          backRrn: jumin2,
           number: num,
         },
         {
@@ -146,7 +146,7 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
         console.log("success");
         // localStorage.setItem("signupData", JSON.stringify(res.data));
         window.alert("회원가입에 성공했습니다.");
-        navigate("/");
+        window.location.replace("/");
       })
       .catch((error) => {
         console.log(error);

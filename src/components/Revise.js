@@ -4,8 +4,15 @@ import "./Revise.css";
 import { Container } from "react-bootstrap";
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import axios from "axios";
 
-const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
+const Revise = ({
+  reviseOpenModal,
+  reviseCloseModal,
+  reviseModal,
+  setLoginStatus,
+}) => {
+  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [num, setNum] = useState("");
   const [pw, setPw] = useState("");
@@ -74,10 +81,36 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
     if (e.key === "Enter") {
       handleRevise();
     }
-    console.log("enter");
   };
 
   const handleRevise = () => {
+    axios
+      .put(
+        "http://43.200.99.107:8080/member/update",
+        {
+          backRrn: jumin2,
+          email: email,
+          password: pw,
+          frontRrn: jumin1,
+          name: name,
+          number: num,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem(
+              "accessToken"
+            )}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        reviseCloseModal();
+        console.log(err);
+      });
+
     if (pw === "") {
       window.alert("비밀번호를 입력해주세요!");
       return;
@@ -91,6 +124,7 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
       return;
     }
   };
+
   return (
     <>
       {reviseModal ? (
@@ -117,7 +151,7 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
                 <TextField
                   onKeyPress={handleEnter}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setEmail(e.target.value);
                   }}
                   className="TextField Email-input"
                   id="revise-email"
@@ -127,7 +161,7 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
                   fullWidth
                   name="email"
                   autoComplete="email"
-                  disabled
+                  // disabled
                 />
               </div>
 
@@ -182,7 +216,7 @@ const Revise = ({ reviseOpenModal, reviseCloseModal, reviseModal }) => {
                     }}
                     onKeyUp={onlyNumber}
                     className="TextField jumin-input"
-                    id="date"
+                    id="date1"
                     margin="normal"
                     label="주민번호 앞자리"
                     required

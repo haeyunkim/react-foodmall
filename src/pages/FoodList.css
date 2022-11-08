@@ -1,13 +1,67 @@
 @import url("https://fonts.googleapis.com/css2?family=Hi+Melody&family=Nanum+Gothic&family=Poor+Story&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Hi+Melody&family=Nanum+Gothic&family=Poor+Story&display=swap");
-.back-img-wrapper {
-  width: 100vw;
-  position: relative;
-  right: 100px;
+#foodlist-main {
+  overflow-x: hidden;
 }
-.back-detail-img {
-  width: 365px;
-  height: 300px;
+.back-page {
+  width: 100%;
+  border: 1px solid black;
+  border: none;
+}
+.back-img-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+.back-detail-img1,
+.back-detail-img2,
+.back-detail-img3,
+.back-detail-img4 {
+  width: 320px;
+  height: 320px;
+}
+.back-detail-img4 {
+  width: 320px;
+  height: 320px;
+  padding: 0 12px;
+  position: relative;
+  left: 12px;
+}
+.backMap-container {
+  width: 100%;
+  height: 320px;
+}
+@media screen and (max-width: 48rem) {
+  .back-page {
+    overflow-x: hidden;
+  }
+  .back-detail-img1,
+  .back-detail-img2 {
+    width: 10rem;
+    height: 10rem;
+  }
+  .back-detail-img3,
+  .back-detail-img4 {
+    width: 10.5rem;
+    height: 10rem;
+    margin-top: 15px;
+  }
+
+  .back-detail-img4 {
+    width: 100%;
+    position: relative;
+    right: 20px;
+  }
+
+  .backMap-container {
+    height: 200px;
+    position: relative;
+    right: 10px;
+  }
+  .back-img-wrapper {
+    position: relative;
+    left: 10px;
+  }
 }
 .back-detail-name {
   font-family: "SpoqaHanSans", "Noto Sans SC", "APPLE SD Gothic NEO",
@@ -67,8 +121,8 @@
 .gu-img,
 .re-img,
 .back-img {
-  width: 180px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   border-radius: 15px;
 }
 .gu-img:hover,

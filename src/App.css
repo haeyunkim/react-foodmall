@@ -4,6 +4,14 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+/* .container {
+  max-width: 1000px;
+} */
+#main-page-container {
+  overflow-x: hidden;
 }
 .main {
   position: relative;

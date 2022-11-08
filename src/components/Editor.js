@@ -2,7 +2,7 @@ import "./Editor.css";
 import { Container, Row, Col } from "react-bootstrap";
 const Editor = () => {
   return (
-    <section className="container editor-container">
+    <div className="container editor-container">
       <div className="editor-title-wrapper">
         <h2 className="editor-title">대전 대표 음식 Best</h2>
       </div>
@@ -35,7 +35,7 @@ const Editor = () => {
           <p className="editor-item2">죽이누</p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

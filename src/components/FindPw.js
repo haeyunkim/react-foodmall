@@ -46,18 +46,14 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
     }
 
     axios
-      .post("http://43.200.99.107:8080/login", {
+      .post("http://43.200.99.107:8080/member/findPassword", {
+        backRrn: jumin2,
         email: email,
+        frontRrn: jumin1,
         name: name,
-        num: num,
-        jumin1: jumin1,
-        jumin2: jumin2,
       })
       .then((res) => {
-        console.log(res.data);
-        const refreshToken = res.data.refreshToken;
-        const accessToken = res.data.key;
-        window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);

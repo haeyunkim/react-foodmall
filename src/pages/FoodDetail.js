@@ -54,24 +54,25 @@ const FoodDetail = ({ BackList }) => {
   return (
     <div className="back-page">
       <Header />
+
       <div className="container">
         <section className="back-img-wrapper row">
           <img
-            className="back-detail-img col"
+            className="back-detail-img1 col-sm-6 col"
             src={findShop.image1}
-            width="50%"
+            width="20%"
           />
           <img
-            className="back-detail-img col"
+            className="back-detail-img2 col col-sm-6"
             src={findShop.image2}
-            width="50%"
+            width="20%"
           />
           <img
-            className="back-detail-img col"
+            className="back-detail-img3 col col-sm-6"
             src={findShop.image3}
-            width="50%"
+            width="20%"
           />
-          <div className="col back-detail-img1">
+          <div className="col-3 back-detail-img4 col-sm-6">
             <BackdMap lat={lat} id={id} />
           </div>
         </section>
@@ -80,34 +81,34 @@ const FoodDetail = ({ BackList }) => {
         <div>{findShop.name}</div>
       </section>
 
-      <table className="shop-title container">
-        <tbody className="back-detail-item-wrapper ">
-          <tr className="back-detail-item1">
+      <div className="shop-title container">
+        <section className="back-detail-item-wrapper ">
+          <div className="back-detail-item1">
             <span className="back-detail-item-name">주소:</span>
             {findShop.address}
-          </tr>
-          <tr className="back-detail-item2">
+          </div>
+          <div className="back-detail-item2">
             <span className="back-detail-item-name">전화번호:</span>{" "}
             {findShop.number}
-          </tr>
-          <tr className="back-detail-item3">
+          </div>
+          <div className="back-detail-item3">
             <span className="back-detail-item-name">음식종류:</span>{" "}
             {findShop.introduce}
-          </tr>
-          <tr className="back-detail-item4">
+          </div>
+          <div className="back-detail-item4">
             <span className="back-detail-item-name">가격대:</span>
             {findShop.price}
-          </tr>
-          <tr className="back-detail-item5">
+          </div>
+          <div className="back-detail-item5">
             <span className="back-detail-item-name">휴일:</span>
             {findShop.holiday}
-          </tr>
-          <tr className="back-detail-item6">
+          </div>
+          <div className="back-detail-item6">
             <span className="back-detail-item-name">영업시간:</span>
             {findShop.time}
-          </tr>
-        </tbody>
-      </table>
+          </div>
+        </section>
+      </div>
 
       <Footer />
     </div>
@@ -118,15 +119,16 @@ const BackdMap = ({ lat, id }) => {
   return (
     <>
       {lat.map((item, i) => (
-        <>
+        <div className="backMap-wrapper" key={i}>
           {item.id === Number(id) && (
             <>
               <Map
+                className="backMap-container container"
                 center={{ lat: Number(item.lat1), lng: Number(item.lng1) }}
-                style={{
-                  width: "100%",
-                  height: "300px",
-                }}
+                // style={{
+                //   width: "100%",
+                //   height: "320px",
+                // }}
                 key={i}
               >
                 <MapMarker
@@ -139,7 +141,7 @@ const BackdMap = ({ lat, id }) => {
               </Map>
             </>
           )}
-        </>
+        </div>
       ))}
     </>
   );

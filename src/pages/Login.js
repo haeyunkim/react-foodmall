@@ -13,6 +13,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import "./Login.css";
 import FindId from "../components/FindId";
+import { Redirect } from "react-router-dom";
 
 const Login = ({
   findIdOpenModal,
@@ -27,6 +28,7 @@ const Login = ({
   signUpModal,
   signUpOpenModal,
   signUpCloseModal,
+  setLoginStatus,
 }) => {
   let navigate = useNavigate();
   const [id, setId] = useState("");
@@ -69,6 +71,7 @@ const Login = ({
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
+      console.log("enter");
       e.preventDefault();
       register();
     }
@@ -76,19 +79,23 @@ const Login = ({
 
   const register = () => {
     axios
-      .post("http://43.200.99.107:8080/login", {
+      .post("http://43.200.99.107:8080/member/login", {
         email: id,
         password: pw,
       })
       .then((res) => {
         console.log(res.data);
-        const refreshToken = res.data.refreshToken;
-        const accessToken = res.data.key;
+        const refreshToken = res.data.rtk;
+        const accessToken = res.data.atk;
 
-        // window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        window.localStorage.setItem("accessToken", accessToken);
+        window.localStorage.setItem("refreshToken", refreshToken);
+        axios.defaults.headers.common["Authorization"] = `${accessToken}`;
 
         window.alert("로그인에 성공했습니다.");
-        navigate("/");
+        loginCloseModal();
+        window.location.replace("/");
+
         // if (result.message === "success") {
         //   console.log(result);
         //   window.localStorage.setItem("token", result.access_token);

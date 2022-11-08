@@ -2,12 +2,39 @@ import { TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import { json } from "react-router-dom";
 import { ThemeConsumer } from "styled-components";
 import "./FindId.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const FindId = ({ findIdModal, findIdCloseModal }) => {
+// const FindIdSmModal = ({ smShow, setSmShow }) => {
+//   return (
+//     <>
+//       <Modal
+//         size="sm"
+//         show={smShow}
+//         onHide={() => setSmShow(false)}
+//         aria-labelledby="example-modal-sizes-title-sm"
+//       >
+//         <Modal.Header closeButton>
+//           <Modal.Title id="example-modal-sizes-title-sm">
+//             Small Modal
+//           </Modal.Title>
+//         </Modal.Header>
+//         <Modal.Body>...</Modal.Body>
+//       </Modal>
+//     </>
+//   );
+// };
+
+const FindId = ({
+  findIdModal,
+  findIdCloseModal,
+  // findIdConfirmOpenModal,
+  // findIdConfirmCloseModal,
+  // findIdConfirm
+}) => {
   const [name, setName] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
@@ -46,16 +73,15 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
     }
 
     axios
-      .post("", {
+      .post("http://43.200.99.107:8080/member/findEmail", {
         name: name,
-        jumin1: jumin1,
-        jumin2: jumin2,
-        num: num,
+        frontRrn: jumin1,
+        backRrn: jumin2,
       })
+
       .then((res) => {
-        console.log(res.data);
-        const accessToken = res.data.key;
-        window.localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        window.alert(res.data);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -170,7 +196,7 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                조회하기
+                이메일 찾기
               </Button>
             </div>
           </section>

@@ -138,7 +138,7 @@ const FoodList = () => {
     console.log(e.target.value);
   };
   return (
-    <>
+    <div id="foodlist-main">
       <Header />
       <section className="search-input-wrapper">
         <form className="search-input-container" onSubmit={onSubmit}>
@@ -246,7 +246,7 @@ const FoodList = () => {
           </div>
         );
       })} */}
-    </>
+    </div>
   );
 };
 

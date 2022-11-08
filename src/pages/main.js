@@ -14,12 +14,12 @@ const Main = () => {
   }, []);
 
   return (
-    <>
+    <div id="main-page-container">
       <Header />
       <Slide />
       <Editor />
       <Footer />
-    </>
+    </div>
   );
 };
 

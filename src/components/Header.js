@@ -11,6 +11,7 @@ import "./Header.css";
 import FindId from "./FindId";
 import FindPw from "./FindPw";
 import SignUp from "./SignUp";
+import api from "../apis/axios";
 
 const Header = () => {
   let navigate = useNavigate();
@@ -20,6 +21,7 @@ const Header = () => {
   const [findIdModal, setFindIdModal] = useState(false);
   const [findPwModal, setFindPwModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
+  const [findIdConfirm, setFindIdConfirm] = useState(false);
 
   const loginOpenModal = () => {
     setLoginModal(true);
@@ -30,6 +32,18 @@ const Header = () => {
   };
 
   const reviseOpenModal = () => {
+    axios
+      .get("http://43.200.99.107:8080/member/info", {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setReviseModal(true);
   };
 
@@ -61,23 +75,21 @@ const Header = () => {
     setSignUpModal(false);
   };
 
+  // const findIdConfirmOpenModal = () => {
+  //   setFindIdConfirm(true);
+  // };
+  // const findIdConfirmCloseModal = () => {
+  //   setFindIdConfirm(false);
+  // };
+
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       setLoginStatus(true);
+      console.log("값이 있습니다");
     } else {
       console.log("값이 없습니다.");
     }
-  }, []);
-
-  //테스트 값
-  useEffect(() => {
-    window.localStorage.setItem("user", [
-      { email: "2ghldbs2311@naver.com" },
-      { pw: "gosdbs747!" },
-      { name: "김회윤" },
-      { number: "01025579671" },
-    ]);
-  }, []);
+  }, [loginStatus]);
 
   return (
     <div className="main">
@@ -96,10 +108,10 @@ const Header = () => {
             />
             <span>대전의 맛</span>
           </Navbar.Brand>
-          <div>
+          <div className="main-nav-item-wrapper">
             <Nav className="me-auto">
               <Nav.Link
-                id="main-nav-item"
+                id="main-nav-item-1"
                 onClick={() => {
                   navigate("/");
                 }}
@@ -107,23 +119,23 @@ const Header = () => {
                 Home
               </Nav.Link>
               <Nav.Link
-                id="main-nav-item"
+                id="main-nav-item-2"
                 onClick={() => {
                   navigate("/foodList");
                 }}
               >
                 맛집리스트
               </Nav.Link>
-              <Nav.Link id="main-nav-item" onClick={reviseOpenModal}>
-                회원정보수정
-              </Nav.Link>
               {loginStatus ? (
                 <>
+                  <Nav.Link id="main-nav-item" onClick={reviseOpenModal}>
+                    회원정보수정
+                  </Nav.Link>
                   <Nav.Link
-                    id="main-nav-item"
+                    id="main-nav-item-3"
                     onClick={() => {
                       window.localStorage.removeItem("accessToken");
-                      navigate("/");
+                      window.location.replace("/");
                     }}
                   >
                     로그아웃
@@ -131,7 +143,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link id="main-nav-item" onClick={loginOpenModal}>
+                  <Nav.Link id="main-nav-item-4" onClick={loginOpenModal}>
                     Login
                   </Nav.Link>
                 </>
@@ -158,16 +170,32 @@ const Header = () => {
         signUpCloseModal={signUpCloseModal}
         signUpOpenModal={signUpOpenModal}
         signUpModal={signUpModal}
+        setLoginStatus={setLoginStatus}
+        // findIdConfirmOpenModal={findIdConfirmOpenModal}
+        // findIdConfirmCloseModal={findIdCloseModal}
+        // findIdConfirm={findIdConfirm}
       />
       <SignUp signUpModal={signUpModal} signUpCloseModal={signUpCloseModal} />
-      <FindId findIdModal={findIdModal} findIdCloseModal={findIdCloseModal} />
-      <FindPw findPwModal={findPwModal} findPwCloseModal={findPwCloseModal} />
+      <FindId
+        findIdModal={findIdModal}
+        findIdCloseModal={findIdCloseModal}
+        setLoginStatus={setLoginStatus}
+        // findIdConfirmOpenModal={findIdConfirmOpenModal}
+        // findIdConfirmCloseModal={findIdCloseModal}
+        // findIdConfirm={findIdConfirm}
+      />
+      <FindPw
+        findPwModal={findPwModal}
+        findPwCloseModal={findPwCloseModal}
+        setLoginStatus={setLoginStatus}
+      />
 
       {reviseModal ? <div className="popup-bg"></div> : <></>}
       {loginModal ? <div className="popup-bg"></div> : <></>}
       {findIdModal ? <div className="popup-bg"></div> : <></>}
       {findPwModal ? <div className="popup-bg"></div> : <></>}
       {signUpModal ? <div className="popup-bg"></div> : <></>}
+      {/* {findIdConfirm ? <div className="popup-bg"></div> : <></>} */}
     </div>
   );
 };

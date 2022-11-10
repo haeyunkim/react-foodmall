@@ -14,7 +14,7 @@ const Editor = () => {
             className="editor-img"
           />
           <h2 className="editor-item1">칼국수 맛집</h2>
-          <p className="editor-item2">구수하이</p>
+          <p className="editor-item2">1</p>
         </div>
 
         <div className="editor-box col">
@@ -23,7 +23,7 @@ const Editor = () => {
             className="editor-img"
           />
           <h2 className="editor-item1">삼계탕 맛집</h2>
-          <p className="editor-item2">쳐</p>
+          <p className="editor-item2">2</p>
         </div>
 
         <div className="editor-box col">
@@ -32,7 +32,7 @@ const Editor = () => {
             className="editor-img"
           />
           <h2 className="editor-item1">설렁탕 맛집</h2>
-          <p className="editor-item2">죽이누</p>
+          <p className="editor-item2">3</p>
         </div>
       </div>
     </div>

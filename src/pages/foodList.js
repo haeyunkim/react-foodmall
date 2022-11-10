@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Data from "../data";
 import Header from "../components/Header";
 import { Container, Row, Col } from "react-bootstrap";
@@ -120,23 +120,38 @@ const FoodList = () => {
     },
   ]);
 
-  const [inputValue, setInputValue] = useState("");
+  const [searchList, setSearchList] = useState("");
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   let { id } = useParams();
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      navigate("/Login");
+      onSearch();
     }
+  };
+
+  const onSearch = () => {
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", {
+        search: search,
+      })
+      .then((res) => {
+        setSearchList(res.data.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const onSubmit = (e) => {
     e.preventDefault();
   };
 
   const onChange = (e) => {
-    setInputValue(e.target.value);
-    console.log(e.target.value);
+    setSearch(e.target.value);
+    console.log(search);
   };
+
   return (
     <div id="foodlist-main">
       <Header />
@@ -145,6 +160,7 @@ const FoodList = () => {
           <input
             className="search-input"
             type="text"
+            value={search}
             placeholder="맛집을 검색하세요"
             size="10"
             autoFocus

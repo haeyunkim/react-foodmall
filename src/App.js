@@ -11,6 +11,7 @@ import BackList from "./components/backList";
 import FoodGu from "./pages/FoodGu";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import SearchPage from "./pages/SearchPage";
 
 const StoreContext = createContext();
 
@@ -31,6 +32,7 @@ function App() {
             element={<FoodDetail BackList={BackList} />}
           />
           <Route path="/foodList/gu/:id" element={<FoodGu />} />
+          <Route path="/foodList/:word" element={<SearchPage />} />
         </Routes>
       </StoreContext.Provider>
       <script

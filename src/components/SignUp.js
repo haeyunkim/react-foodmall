@@ -150,7 +150,13 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
       })
       .catch((error) => {
         console.log(error);
-        window.alert("중복된 아이디값입니다.");
+        console.log(error.response.data.message);
+        if (error.response.data.message === "이미 회원가입 되어있습니다.") {
+          return window.alert("이미 회원가입 되어있습니다.");
+        }
+        if (error.response.data.message === "이미 존재하는 이메일입니다.") {
+          return window.alert("이미 존재하는 이메일입니다.");
+        }
       });
   };
 

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Routes, Route } from "react-router-dom";
 import FoodDetail from "./FoodDetail";
+import Search from "../components/Search";
 import "./FoodList.css";
 
 const FoodList = () => {
@@ -67,7 +68,7 @@ const FoodList = () => {
       image:
         "https://mp-seoul-image-production-s3.mangoplate.com/1593527_1633873900871388.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
       name: "성심당",
-      address: "대전광역시 동구 중앙로 215 대전역 KTX라운지 옆 2F",
+      address: "대전광역시 동구 중앙로 215 대전역 2F",
     },
     {
       image:
@@ -120,56 +121,17 @@ const FoodList = () => {
     },
   ]);
 
-  const [searchList, setSearchList] = useState("");
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      onSearch();
-    }
-  };
-
-  const onSearch = () => {
-    axios
-      .post("https://jsonplaceholder.typicode.com/posts", {
-        search: search,
-      })
-      .then((res) => {
-        setSearchList(res.data.body);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   const onSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const onChange = (e) => {
-    setSearch(e.target.value);
-    console.log(search);
   };
 
   return (
     <div id="foodlist-main">
       <Header />
-      <section className="search-input-wrapper">
-        <form className="search-input-container" onSubmit={onSubmit}>
-          <input
-            className="search-input"
-            type="text"
-            value={search}
-            placeholder="맛집을 검색하세요"
-            size="10"
-            autoFocus
-            onChange={onChange}
-            onKeyPress={handleEnter}
-          ></input>
-          <button type="submit" className="input-btn"></button>
-        </form>
-      </section>
+      <Search />
 
       <section className="gu-area container">
         <div className="gu-container">

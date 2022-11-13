@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const Revise = ({
   reviseOpenModal,
@@ -30,6 +31,23 @@ const Revise = ({
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNumber, setIsNumber] = useState(false);
 
+  const handleWithdraw = () => {
+    axios
+      .get("http://43.200.99.107:8080/member/delete", {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        window.localStorage.removeItem("accessToken");
+        window.localStorage.removeItem("refreshToken");
+        window.location.replace("/");
+        window.alert("회원 탈퇴가 완료되었습니다");
+      })
+      .catch((err) => {
+        console.log("탈퇴에러");
+      });
+  };
   const onChangePassWord = (e) => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -273,7 +291,7 @@ const Revise = ({
               </div>
             </form>
 
-            <div className="revise-btn-wrapper">
+            <div className="btn-wrapper">
               <Button
                 id="revise-btn"
                 onClick={() => {
@@ -286,6 +304,18 @@ const Revise = ({
                 sx={{ mt: 3, mb: 2 }}
               >
                 수정하기
+              </Button>
+
+              <Button
+                id="withdraw-btn"
+                onClick={handleWithdraw}
+                className="checkBtn"
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                탈퇴하기
               </Button>
             </div>
           </section>

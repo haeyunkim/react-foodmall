@@ -91,14 +91,23 @@
 .revise-jumin1-wrapper {
   width: 197px;
 }
-.revise-btn-wrapper {
+.btn-wrapper {
   display: flex;
   justify-content: center;
 }
-#revise-btn {
+#revise-btn,
+#withdraw-btn {
   position: relative;
   top: 3px;
-  width: 400px;
+  width: 190px;
+}
+#revise-btn {
+  position: relative;
+  right: 10px;
+}
+#withdraw-btn {
+  position: relative;
+  left: 10px;
 }
 .message {
   font-weight: bold;

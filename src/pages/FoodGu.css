@@ -23,6 +23,7 @@
   margin-left: 20px;
 }
 #foodGu-list-wrapper {
+  width: 100%;
 }
 #foodGu-list {
   display: flex;

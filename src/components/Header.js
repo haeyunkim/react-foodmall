@@ -21,6 +21,7 @@ const Header = () => {
   const [findPwModal, setFindPwModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
   const [myEmail, setMyEmail] = useState("");
+  const [rrn, setRrn] = useState([]);
 
   const loginOpenModal = () => {
     setLoginModal(true);
@@ -33,34 +34,18 @@ const Header = () => {
   const clickHome = () => {
     navigate("/");
 
-    axios
-      .get("http://43.200.99.107:8080/member/info", {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        console.log("success");
-        setMyEmail(res.data.email);
-        console.log(myEmail);
-      })
+    api
+      .get("/info")
+      .then((res) => {})
       .catch((err) => {
         if (err.response.data.message.includes("JWT expired")) {
-          axios
-            .get("http://43.200.99.107:8080/member/reissue", {
-              headers: {
-                Authorization: `Bearer ${window.localStorage.getItem(
-                  "refreshToken"
-                )}`,
-              },
-            })
-            .then((res) => {
-              console.log(res);
-              const atk = res.data.atk;
-              window.localStorage.removeItem("accessToken");
-              window.localStorage.setItem("accessToken", atk);
-              setReviseModal(true);
-            });
+          api.get("/reissue").then((res) => {
+            console.log(res);
+            const atk = res.data.atk;
+            window.localStorage.removeItem("accessToken");
+            window.localStorage.setItem("accessToken", atk);
+            setReviseModal(true);
+          });
         }
       });
   };
@@ -68,34 +53,25 @@ const Header = () => {
   const reviseOpenModal = () => {
     setReviseModal(true);
 
-    axios
-      .get("http://43.200.99.107:8080/member/info", {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
-        },
-      })
+    api
+      .get("/info")
       .then((res) => {
-        console.log("success");
+        console.log("회원정보수정클릭", res);
         setMyEmail(res.data.email);
+        const jumin1 = res.data.rrn.split("-");
+        setRrn(jumin1);
+        console.log(rrn);
         console.log(myEmail);
       })
       .catch((err) => {
         if (err.response.data.message.includes("JWT expired")) {
-          axios
-            .get("http://43.200.99.107:8080/member/reissue", {
-              headers: {
-                Authorization: `Bearer ${window.localStorage.getItem(
-                  "refreshToken"
-                )}`,
-              },
-            })
-            .then((res) => {
-              console.log(res);
-              const atk = res.data.atk;
-              window.localStorage.removeItem("accessToken");
-              window.localStorage.setItem("accessToken", atk);
-              setReviseModal(true);
-            });
+          api.get("/reissue").then((res) => {
+            console.log(res);
+            const atk = res.data.atk;
+            window.localStorage.removeItem("accessToken");
+            window.localStorage.setItem("accessToken", atk);
+            setReviseModal(true);
+          });
         }
       });
   };
@@ -103,32 +79,20 @@ const Header = () => {
   const clickList = () => {
     navigate("/foodList");
 
-    axios
-      .get("http://43.200.99.107:8080/member/info", {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
-        },
-      })
+    api
+      .get("/info")
       .then((res) => {
         console.log("successClickList");
       })
       .catch((err) => {
         if (err.response.data.message.includes("JWT expired")) {
-          axios
-            .get("http://43.200.99.107:8080/member/reissue", {
-              headers: {
-                Authorization: `Bearer ${window.localStorage.getItem(
-                  "refreshToken"
-                )}`,
-              },
-            })
-            .then((res) => {
-              console.log(res);
-              const atk = res.data.atk;
-              window.localStorage.removeItem("accessToken");
-              window.localStorage.setItem("accessToken", atk);
-              navigate("/foodList");
-            });
+          api.get("/reissue").then((res) => {
+            console.log(res);
+            const atk = res.data.atk;
+            window.localStorage.removeItem("accessToken");
+            window.localStorage.setItem("accessToken", atk);
+            navigate("/foodList");
+          });
         }
       });
   };
@@ -235,6 +199,7 @@ const Header = () => {
         reviseCloseModal={reviseCloseModal}
         reviseModal={reviseModal}
         myEmail={myEmail}
+        rrn={rrn}
       />
       <Login
         loginOpenModal={loginOpenModal}

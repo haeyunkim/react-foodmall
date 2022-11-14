@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import FindIdConfirm from "./FindIdConfirm";
 import findIdConfirm from "./FindIdConfirm";
+import api from "../apis/axios";
 
 const FindId = ({ findIdModal, findIdCloseModal }) => {
   const [name, setName] = useState("");
@@ -58,13 +59,12 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
     if (num === "") {
       window.alert("핸드폰 번호를 입력하세요");
     }
-    axios
-      .post("http://43.200.99.107:8080/member/findEmail", {
+    api
+      .post("/findEmail", {
         name: name,
         frontRrn: jumin1,
         backRrn: jumin2,
       })
-
       .then((res) => {
         console.log(res);
         setMyId(res.data);

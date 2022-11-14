@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import SignUpPopUp from "../popup/SignupPopup";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import api from "../apis/axios";
 
 const SignUp = ({ signUpCloseModal, signUpModal }) => {
   const [email, setEmail] = useState("");
@@ -124,23 +125,15 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
       window.alert("핸드폰 번호를 입력해주세요!");
       return;
     }
-    axios
-      .post(
-        "http://43.200.99.107:8080/member/join",
-        {
-          email: email,
-          password: pw,
-          name: name,
-          frontRrn: jumin1,
-          backRrn: jumin2,
-          number: num,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json; charset=utf8",
-          },
-        }
-      )
+    api
+      .post("/join", {
+        email: email,
+        password: pw,
+        name: name,
+        frontRrn: jumin1,
+        backRrn: jumin2,
+        number: num,
+      })
       .then((res) => {
         console.log(res);
         console.log("success");

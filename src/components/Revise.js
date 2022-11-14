@@ -6,6 +6,7 @@ import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
 import { ConstructionOutlined } from "@mui/icons-material";
+import api from "../apis/axios";
 
 const Revise = ({
   reviseOpenModal,
@@ -13,6 +14,7 @@ const Revise = ({
   reviseModal,
   setLoginStatus,
   myEmail,
+  rrn,
 }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -32,12 +34,8 @@ const Revise = ({
   const [isNumber, setIsNumber] = useState(false);
 
   const handleWithdraw = () => {
-    axios
-      .get("http://43.200.99.107:8080/member/delete", {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
-        },
-      })
+    api
+      .get("/delete")
       .then((res) => {
         window.localStorage.removeItem("accessToken");
         window.localStorage.removeItem("refreshToken");
@@ -103,32 +101,31 @@ const Revise = ({
   };
 
   const handleRevise = () => {
-    axios
-      .put(
-        "http://43.200.99.107:8080/member/update",
-        {
-          backRrn: jumin2,
-          email: myEmail,
-          password: pw,
-          frontRrn: jumin1,
-          name: name,
-          number: num,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem(
-              "accessToken"
-            )}`,
-          },
-        }
-      )
+    api
+      .put("/update", {
+        backRrn: jumin2,
+        email: myEmail,
+        password: pw,
+        frontRrn: jumin1,
+        name: name,
+        number: num,
+      })
       .then((res) => {
         window.alert("회원정보수정이 완료되었습니다");
         reviseCloseModal();
       })
       .catch((err) => {
         reviseCloseModal();
-        console.log(err);
+        console.log(err, "회원정보수정 오류");
+        if (err.response.data.message.includes("JWT expired")) {
+          api.get("/reissue").then((res) => {
+            console.log(res);
+            window.alert("회원수정이 완료되었습니다.");
+            const atk = res.data.atk;
+            window.localStorage.removeItem("accessToken");
+            window.localStorage.setItem("accessToken", atk);
+          });
+        }
       });
 
     if (pw === "") {
@@ -240,6 +237,7 @@ const Revise = ({
                     onKeyUp={onlyNumber}
                     className="TextField jumin-input"
                     id="date1"
+                    value={rrn[0]}
                     margin="normal"
                     label="주민번호 앞자리"
                     required
@@ -259,6 +257,7 @@ const Revise = ({
                     type="password"
                     className="TextField jumin-input"
                     id="date"
+                    value={rrn[1]}
                     margin="normal"
                     label="주민번호 뒷자리"
                     required
@@ -268,6 +267,9 @@ const Revise = ({
                   />
                 </div>
               </div>
+              <span className="dontChangejumin">
+                주민번호는 변경할 수 없습니다
+              </span>
 
               <div id="revise-num-container">
                 <TextField

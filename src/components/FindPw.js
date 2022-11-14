@@ -1,8 +1,12 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./FindPw.css";
 import axios from "axios";
+import api from "../apis/axios";
+import { NavigateBefore } from "@mui/icons-material";
+import FindPwConfirm from "./findPwConfirm";
 
 const FindPw = ({ findPwModal, findPwCloseModal }) => {
   const [email, setEmail] = useState("");
@@ -10,6 +14,16 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
   const [num, setNum] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
+  const navigate = useNavigate();
+  const [findPwConfirmModal, setFindPwConfirmModal] = useState(false);
+
+  const findPwConfirmOpenModal = () => {
+    findPwCloseModal();
+    setFindPwConfirmModal(true);
+  };
+  const findPwConfirmCloseModal = () => {
+    setFindPwConfirmModal(false);
+  };
 
   const onlyKorean = (e) => {
     if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
@@ -34,19 +48,19 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
   const handleLookUp = () => {
     if (email === "") {
       window.alert("이메일을 입력하세요");
-    }
-    if (name === "") {
+    } else if (name === "") {
       window.alert("이름을 입력하세요");
-    }
-    if (num === "") {
+      return;
+    } else if (num === "") {
       window.alert("휴대폰 번호를 입력하세요");
-    }
-    if (jumin1 === "" || jumin2 === "") {
+      return;
+    } else if (jumin1 === "" || jumin2 === "") {
       window.alert("주민번호를 입력하세요");
+      return;
     }
 
-    axios
-      .post("http://43.200.99.107:8080/member/findPassword", {
+    api
+      .post("/findPassword", {
         backRrn: jumin2,
         email: email,
         frontRrn: jumin1,
@@ -54,6 +68,7 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
       })
       .then((res) => {
         console.log(res);
+        findPwConfirmOpenModal();
       })
       .catch((error) => {
         console.log(error);
@@ -193,6 +208,11 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
       ) : (
         <></>
       )}
+      <FindPwConfirm
+        findPwConfirmCloseModal={findPwConfirmCloseModal}
+        findPwConfirmModal={findPwConfirmModal}
+      />
+      {findPwConfirmModal ? <div className="popup-bg"></div> : <></>}
     </>
   );
 };

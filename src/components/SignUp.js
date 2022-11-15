@@ -1,14 +1,15 @@
-import axios from "axios";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import SignUpPopUp from "../popup/SignupPopup";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import api from "../apis/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { changeSignUpMode } from "../store/loginModal";
+import "./SignUp.css";
 
-const SignUp = ({ signUpCloseModal, signUpModal }) => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [checkPw, setCheckPw] = useState("");
@@ -16,8 +17,8 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
   const [num, setNum] = useState("");
-  const [popUp, setPopUp] = useState(false);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // 오류 메시지 출력
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
@@ -28,6 +29,7 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNumber, setIsNumber] = useState(false);
+  let signUpModal = useSelector((state) => state.signUpModal);
 
   const onChangeEmail = (e) => {
     const emailRegex =
@@ -110,9 +112,6 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
   };
 
   const handleSignUp = () => {
-    if (pw !== checkPw) {
-      setPopUp(true);
-    }
     if (email === "" || pw === "") {
       window.alert("아이디와 비밀번호를 입력해주세요!");
       return;
@@ -172,7 +171,9 @@ const SignUp = ({ signUpCloseModal, signUpModal }) => {
                   <div className="signup-close-btn-wrapper">
                     <button
                       className="signup-close-btn"
-                      onClick={signUpCloseModal}
+                      onClick={() => {
+                        dispatch(changeSignUpMode(false));
+                      }}
                     >
                       x
                     </button>

@@ -1,42 +1,38 @@
 import { useEffect } from "react";
-import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Revise from "./Revise";
-import axios from "axios";
 import Login from "../pages/Login";
-import { changeLogin } from "../store/ModalSlice";
+import { changeLoginMode, changeReviseMode } from "../store/loginModal";
 import "./Header.css";
 import FindId from "./FindId";
 import FindPw from "./FindPw";
 import SignUp from "./SignUp";
 import api from "../apis/axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginStatus, setLoginStatus] = useState(false);
-  const [reviseModal, setReviseModal] = useState(false);
-  const [loginModal, setLoginModal] = useState(false);
-  const [findIdModal, setFindIdModal] = useState(false);
-  const [findPwModal, setFindPwModal] = useState(false);
-  const [signUpModal, setSignUpModal] = useState(false);
+  let loginModal = useSelector((state) => state.loginModal);
+  let reviseModal = useSelector((state) => state.reviseModal);
+  let findIdModal = useSelector((state) => state.findIdModal);
+  let findPwModal = useSelector((state) => state.findPwModal);
+  let signUpModal = useSelector((state) => state.signUpModal);
+
   const [myEmail, setMyEmail] = useState("");
   const [rrn, setRrn] = useState([]);
-
-  const loginOpenModal = () => {
-    setLoginModal(true);
-  };
-
-  const loginCloseModal = () => {
-    setLoginModal(false);
-  };
 
   const clickHome = () => {
     navigate("/");
 
     api
       .get("/info")
-      .then((res) => {})
+      .then((res) => {
+        console.log("홈 버튼 클릭 성공", res);
+      })
       .catch((err) => {
         if (err.response.data.message.includes("JWT expired")) {
           api.get("/reissue").then((res) => {
@@ -44,14 +40,14 @@ const Header = () => {
             const atk = res.data.atk;
             window.localStorage.removeItem("accessToken");
             window.localStorage.setItem("accessToken", atk);
-            setReviseModal(true);
+            // dispatch(changeReviseMode(true));
           });
         }
       });
   };
 
   const reviseOpenModal = () => {
-    setReviseModal(true);
+    dispatch(changeReviseMode(true));
 
     api
       .get("/info")
@@ -64,13 +60,14 @@ const Header = () => {
         console.log(myEmail);
       })
       .catch((err) => {
+        console.log("회원정보수정클릭", err);
         if (err.response.data.message.includes("JWT expired")) {
           api.get("/reissue").then((res) => {
             console.log(res);
             const atk = res.data.atk;
             window.localStorage.removeItem("accessToken");
             window.localStorage.setItem("accessToken", atk);
-            setReviseModal(true);
+            dispatch(changeReviseMode);
           });
         }
       });
@@ -97,41 +94,6 @@ const Header = () => {
       });
   };
 
-  const reviseCloseModal = () => {
-    setReviseModal(false);
-  };
-
-  const findIdOpenModal = () => {
-    setFindIdModal(true);
-    setLoginModal(false);
-  };
-  const findIdCloseModal = () => {
-    setFindIdModal(false);
-  };
-
-  const findPwOpenModal = () => {
-    setFindPwModal(true);
-    setLoginModal(false);
-  };
-  const findPwCloseModal = () => {
-    setFindPwModal(false);
-  };
-
-  const signUpOpenModal = () => {
-    setSignUpModal(true);
-    setLoginModal(false);
-  };
-  const signUpCloseModal = () => {
-    setSignUpModal(false);
-  };
-
-  // const findIdConfirmOpenModal = () => {
-  //   setFindIdConfirm(true);
-  // };
-  // const findIdConfirmCloseModal = () => {
-  //   setFindIdConfirm(false);
-  // };
-
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       setLoginStatus(true);
@@ -140,8 +102,6 @@ const Header = () => {
       console.log("값이 없습니다.");
     }
   }, [loginStatus]);
-
-  useEffect(() => {});
 
   return (
     <div className="main">
@@ -185,7 +145,12 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link id="main-nav-item-4" onClick={loginOpenModal}>
+                  <Nav.Link
+                    id="main-nav-item-4"
+                    onClick={() => {
+                      dispatch(changeLoginMode(true));
+                    }}
+                  >
                     Login
                   </Nav.Link>
                 </>
@@ -194,45 +159,11 @@ const Header = () => {
           </div>
         </Container>
       </Navbar>
-      <Revise
-        reviseOpenModal={reviseOpenModal}
-        reviseCloseModal={reviseCloseModal}
-        reviseModal={reviseModal}
-        myEmail={myEmail}
-        rrn={rrn}
-      />
-      <Login
-        loginOpenModal={loginOpenModal}
-        loginCloseModal={loginCloseModal}
-        loginModal={loginModal}
-        findIdModal={findIdModal}
-        findIdCloseModal={findIdCloseModal}
-        findIdOpenModal={findIdOpenModal}
-        findPwModal={findPwModal}
-        findPwCloseModal={findPwCloseModal}
-        findPwOpenModal={findPwOpenModal}
-        signUpCloseModal={signUpCloseModal}
-        signUpOpenModal={signUpOpenModal}
-        signUpModal={signUpModal}
-        setLoginStatus={setLoginStatus}
-        // findIdConfirmOpenModal={findIdConfirmOpenModal}
-        // findIdConfirmCloseModal={findIdCloseModal}
-        // findIdConfirm={findIdConfirm}
-      />
-      <SignUp signUpModal={signUpModal} signUpCloseModal={signUpCloseModal} />
-      <FindId
-        findIdModal={findIdModal}
-        findIdCloseModal={findIdCloseModal}
-        setLoginStatus={setLoginStatus}
-        // findIdConfirmOpenModal={findIdConfirmOpenModal}
-        // findIdConfirmCloseModal={findIdCloseModal}
-        // findIdConfirm={findIdConfirm}
-      />
-      <FindPw
-        findPwModal={findPwModal}
-        findPwCloseModal={findPwCloseModal}
-        setLoginStatus={setLoginStatus}
-      />
+      <Revise myEmail={myEmail} rrn={rrn} />
+      <Login setLoginStatus={setLoginStatus} />
+      <SignUp />
+      <FindId setLoginStatus={setLoginStatus} />
+      <FindPw setLoginStatus={setLoginStatus} />
 
       {reviseModal ? <div className="popup-bg"></div> : <></>}
       {loginModal ? <div className="popup-bg"></div> : <></>}

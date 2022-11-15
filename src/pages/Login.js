@@ -4,39 +4,28 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { AiOutlineClose } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../components/Header";
-import api from "../apis/axios";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./Login.css";
-import FindId from "../components/FindId";
-import { Redirect } from "react-router-dom";
+import {
+  changeFindIdMode,
+  changeFindPwMode,
+  changeLoginMode,
+  changeSignUpMode,
+} from "../store/loginModal";
 
-const Login = ({
-  findIdOpenModal,
-  loginOpenModal,
-  loginCloseModal,
-  loginModal,
-  findIdModal,
-  findIdCloseModal,
-  findPwCloseModal,
-  findPwModal,
-  findPwOpenModal,
-  signUpModal,
-  signUpOpenModal,
-  signUpCloseModal,
-  setLoginStatus,
-}) => {
-  let navigate = useNavigate();
+const Login = ({ setLoginStatus }) => {
+  let dispatch = useDispatch();
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [idMessage, setIdMessage] = useState("");
   const [pwMessage, setPwMessage] = useState("");
   const [isId, setIsId] = useState(false);
   const [isPw, setIsPw] = useState(false);
+
+  let loginModal = useSelector((state) => state.loginModal);
 
   const onChangeId = (e) => {
     const idRegex =
@@ -56,7 +45,7 @@ const Login = ({
 
   const onChangePw = (e) => {
     const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      /^(?=.*[a-zA-Z])(?=.*[!@#$% ^*+=-])(?=.*[0-9]).{8,25}$/;
     const pwCurrent = e.target.value;
     setPw(pwCurrent);
 
@@ -93,13 +82,8 @@ const Login = ({
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
 
         window.alert("로그인에 성공했습니다.");
-        loginCloseModal();
+        dispatch(changeLoginMode(false));
         window.location.replace("/");
-
-        // if (result.message === "success") {
-        //   console.log(result);
-        //   window.localStorage.setItem("token", result.access_token);
-        // }
       })
       .catch((error) => {
         console.log(error);
@@ -107,6 +91,19 @@ const Login = ({
       });
   };
 
+  const handleFindIdOpen = () => {
+    dispatch(changeLoginMode(false));
+    dispatch(changeFindIdMode(true));
+  };
+
+  const handleFindPwOpen = () => {
+    dispatch(changeFindPwMode(true));
+    dispatch(changeLoginMode(false));
+  };
+  const handleSignUpOpen = () => {
+    dispatch(changeLoginMode(false));
+    dispatch(changeSignUpMode(true));
+  };
   return (
     <>
       {loginModal ? (
@@ -116,7 +113,12 @@ const Login = ({
               <div className="login-box">
                 <div className="login-title-container">
                   <div className="login-title">로그인창</div>
-                  <button className="login-close-btn" onClick={loginCloseModal}>
+                  <button
+                    className="login-close-btn"
+                    onClick={() => {
+                      dispatch(changeLoginMode(false));
+                    }}
+                  >
                     x
                   </button>
                 </div>
@@ -172,17 +174,17 @@ const Login = ({
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link onClick={findIdOpenModal}>
+                    <Link onClick={handleFindIdOpen}>
                       아이디를 찾으시겠습니까?
                     </Link>
                   </Grid>
                   <Grid item xs>
-                    <Link onClick={findPwOpenModal}>
+                    <Link onClick={handleFindPwOpen}>
                       비밀번호를 찾으시겠습니까?
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link onClick={signUpOpenModal} className="findPw">
+                    <Link onClick={handleSignUpOpen} className="findPw">
                       회원가입하시겠습니까?
                     </Link>
                   </Grid>

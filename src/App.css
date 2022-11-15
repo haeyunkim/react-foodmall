@@ -191,6 +191,8 @@ body {
   font-size: 13px;
   font-weight: 800;
   cursor: none;
+  position: relative;
+  left: 10px;
 }
 .success-email {
   color: blue;

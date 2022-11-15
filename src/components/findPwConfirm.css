@@ -19,7 +19,7 @@
 .newPw-container {
   position: fixed;
   width: 440px;
-  height: 300px;
+  height: 350px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: #fff;
@@ -51,14 +51,14 @@
   font-weight: bold;
   font-size: 10px;
 }
-.success {
+.success1 {
   position: relative;
   left: 55px;
   color: blue;
   font-size: 13px;
   font-weight: 800;
 }
-.error {
+.error1 {
   position: relative;
   left: 55px;
   color: #ff2727;

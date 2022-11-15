@@ -1,29 +1,21 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "./FindPw.css";
-import axios from "axios";
 import api from "../apis/axios";
-import { NavigateBefore } from "@mui/icons-material";
 import FindPwConfirm from "./findPwConfirm";
+import { useSelector, useDispatch } from "react-redux";
+import { changeFindPwConfirmMode, changeFindPwMode } from "../store/loginModal";
 
-const FindPw = ({ findPwModal, findPwCloseModal }) => {
+const FindPw = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [num, setNum] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
-  const navigate = useNavigate();
-  const [findPwConfirmModal, setFindPwConfirmModal] = useState(false);
+  const dispatch = useDispatch();
 
-  const findPwConfirmOpenModal = () => {
-    findPwCloseModal();
-    setFindPwConfirmModal(true);
-  };
-  const findPwConfirmCloseModal = () => {
-    setFindPwConfirmModal(false);
-  };
+  let findPwConfirmModal = useSelector((state) => state.findPwConfirmModal);
+  let findPwModal = useSelector((state) => state.findPwModal);
 
   const onlyKorean = (e) => {
     if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
@@ -67,13 +59,13 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
         name: name,
       })
       .then((res) => {
-        if (res.data === false) {
-          // window.alert("등록된 정보가 없습니다");
-          return;
-        } else if (res.data === true) {
-          findPwConfirmOpenModal();
+        if (res.data === true) {
+          dispatch(changeFindPwMode(false));
+          dispatch(changeFindPwConfirmMode(true));
+          console.log(res);
+        } else {
+          window.alert("등록된 정보가 없습니다");
         }
-        console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -94,7 +86,12 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
                 <h2 className="findPw-title">비밀번호 찾기</h2>
               </div>
               <div className="findPw-close-btn-wrapper">
-                <button className="findPw-close-btn" onClick={findPwCloseModal}>
+                <button
+                  className="findPw-close-btn"
+                  onClick={() => {
+                    dispatch(changeFindPwMode(false));
+                  }}
+                >
                   x
                 </button>
               </div>
@@ -211,10 +208,7 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
       ) : (
         <></>
       )}
-      <FindPwConfirm
-        findPwConfirmCloseModal={findPwConfirmCloseModal}
-        findPwConfirmModal={findPwConfirmModal}
-      />
+      <FindPwConfirm />
       {findPwConfirmModal ? <div className="popup-bg"></div> : <></>}
     </>
   );

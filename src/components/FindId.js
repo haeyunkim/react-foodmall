@@ -1,32 +1,22 @@
 import { TextField, Button } from "@mui/material";
-import axios from "axios";
-import { useEffect } from "react";
 import { useState } from "react";
-import { Container, Modal } from "react-bootstrap";
-import { json } from "react-router-dom";
-import { ThemeConsumer } from "styled-components";
 import "./FindId.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import FindIdConfirm from "./FindIdConfirm";
-import findIdConfirm from "./FindIdConfirm";
 import api from "../apis/axios";
+import { changeFindIdConfirmMode, changeFindIdMode } from "../store/loginModal";
 
-const FindId = ({ findIdModal, findIdCloseModal }) => {
+const FindId = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
   const [num, setNum] = useState("");
-  const [findIdConfirmModal, setFindIdConfirmModal] = useState(false);
   const [myId, setMyId] = useState("");
 
-  const findIdConfirmOpenModal = () => {
-    findIdCloseModal();
-    setFindIdConfirmModal(true);
-  };
-  const findIdConfirmCloseModal = () => {
-    setFindIdConfirmModal(false);
-  };
+  let findIdModal = useSelector((state) => state.findIdModal);
+  let findIdConfirmModal = useSelector((state) => state.findIdConfirmModal);
 
   const onlyKorean = (e) => {
     if (e.key.match(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g)) {
@@ -68,7 +58,8 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
       .then((res) => {
         console.log(res);
         setMyId(res.data);
-        findIdConfirmOpenModal();
+        dispatch(changeFindIdConfirmMode(true));
+        dispatch(changeFindIdMode(false));
       })
       .catch((err) => {
         window.alert("일치하는 정보가 없습니다");
@@ -91,7 +82,12 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
                 <h2 className="findid-title">아이디 찾기</h2>
               </div>
               <div className="findid-close-btn-wrapper">
-                <button className="findid-close-btn" onClick={findIdCloseModal}>
+                <button
+                  className="findid-close-btn"
+                  onClick={() => {
+                    dispatch(changeFindIdMode(false));
+                  }}
+                >
                   x
                 </button>
               </div>
@@ -192,11 +188,7 @@ const FindId = ({ findIdModal, findIdCloseModal }) => {
       ) : (
         <></>
       )}
-      <FindIdConfirm
-        findIdConfirmCloseModal={findIdConfirmCloseModal}
-        findIdConfirmModal={findIdConfirmModal}
-        myId={myId}
-      />
+      <FindIdConfirm myId={myId} />
       {findIdConfirmModal ? <div className="popup-bg"></div> : <></>}
     </>
   );

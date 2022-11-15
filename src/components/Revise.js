@@ -1,21 +1,11 @@
-import Header from "./Header";
-import Footer from "./Footer";
 import "./Revise.css";
-import { Container } from "react-bootstrap";
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import axios from "axios";
-import { ConstructionOutlined } from "@mui/icons-material";
 import api from "../apis/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { changeReviseMode } from "../store/loginModal";
 
-const Revise = ({
-  reviseOpenModal,
-  reviseCloseModal,
-  reviseModal,
-  setLoginStatus,
-  myEmail,
-  rrn,
-}) => {
+const Revise = ({ setLoginStatus, myEmail, rrn }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [num, setNum] = useState("");
@@ -23,6 +13,8 @@ const Revise = ({
   const [checkPw, setCheckPw] = useState("");
   const [jumin1, setJumin1] = useState("");
   const [jumin2, setJumin2] = useState("");
+  const dispatch = useDispatch();
+  let reviseModal = useSelector((state) => state.reviseModal);
 
   // 오류 메세지 출력
   const [passwordMessage, setPasswordMessage] = useState("");
@@ -112,10 +104,10 @@ const Revise = ({
       })
       .then((res) => {
         window.alert("회원정보수정이 완료되었습니다");
-        reviseCloseModal();
+        dispatch(changeReviseMode(false));
       })
       .catch((err) => {
-        reviseCloseModal();
+        dispatch(changeReviseMode(false));
         console.log(err, "회원정보수정 오류");
         if (err.response.data.message.includes("JWT expired")) {
           api.get("/reissue").then((res) => {
@@ -157,7 +149,12 @@ const Revise = ({
                 <h2 className="revise-title">기본정보 수정</h2>
               </div>
               <div className="revise-close-btn-wrapper">
-                <button className="revise-close-btn" onClick={reviseCloseModal}>
+                <button
+                  className="revise-close-btn"
+                  onClick={() => {
+                    dispatch(changeReviseMode(false));
+                  }}
+                >
                   x
                 </button>
               </div>

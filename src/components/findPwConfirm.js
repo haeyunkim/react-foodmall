@@ -1,14 +1,18 @@
 import "./findPwConfirm.css";
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeFindPwConfirmMode } from "../store/loginModal";
 
-const FindPwConfirm = ({ findPwConfirmCloseModal, findPwConfirmModal }) => {
+const FindPwConfirm = () => {
   const [pw, setPw] = useState("");
   const [checkPw, setCheckPw] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
+  const dispatch = useDispatch();
+  let findPwConfirmModal = useSelector((state) => state.findPwConfirmModal);
 
   const onChangePassWord = (e) => {
     const passwordRegex =
@@ -59,7 +63,9 @@ const FindPwConfirm = ({ findPwConfirmCloseModal, findPwConfirmModal }) => {
               <div className="findPwConfirm-close-btn-wrapper">
                 <button
                   className="findPwConfirm-close-btn"
-                  onClick={findPwConfirmCloseModal}
+                  onClick={() => {
+                    dispatch(changeFindPwConfirmMode(false));
+                  }}
                 >
                   x
                 </button>
@@ -81,7 +87,9 @@ const FindPwConfirm = ({ findPwConfirmCloseModal, findPwConfirmModal }) => {
                 />
               </div>
               {pw.length > 0 && (
-                <span className={`message ${isPassword ? "success" : "error"}`}>
+                <span
+                  className={`message ${isPassword ? "success1" : "error1"}`}
+                >
                   {passwordMessage}
                 </span>
               )}
@@ -101,7 +109,9 @@ const FindPwConfirm = ({ findPwConfirmCloseModal, findPwConfirmModal }) => {
               </div>
               {checkPw.length > 0 && (
                 <span
-                  className={`message ${isPasswordCheck ? "success" : "error"}`}
+                  className={`message ${
+                    isPasswordCheck ? "success1" : "error1"
+                  }`}
                 >
                   {passwordCheckMessage}
                 </span>

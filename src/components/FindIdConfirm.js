@@ -1,11 +1,13 @@
 import "./findIdConfirm.css";
+import axios from "axios";
 import { Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { changeFindIdConfirmMode } from "../store/loginModal";
 
-const findIdConfirm = ({
-  myId,
-  findIdConfirmCloseModal,
-  findIdConfirmModal,
-}) => {
+const FindIdConfirm = ({ myId }) => {
+  const dispatch = useDispatch();
+  let findIdConfirmModal = useSelector((state) => state.findIdConfirmModal);
+
   return (
     <>
       {findIdConfirmModal ? (
@@ -15,7 +17,9 @@ const findIdConfirm = ({
               <h2 className="findIdConfirm-title">아이디찾기</h2>
               <button
                 className="findIdConfirm-btn"
-                onClick={findIdConfirmCloseModal}
+                onClick={() => {
+                  dispatch(changeFindIdConfirmMode(false));
+                }}
               >
                 X
               </button>
@@ -35,4 +39,4 @@ const findIdConfirm = ({
   );
 };
 
-export default findIdConfirm;
+export default FindIdConfirm;

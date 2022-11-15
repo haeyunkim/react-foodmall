@@ -67,8 +67,13 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
         name: name,
       })
       .then((res) => {
+        if (res.data === false) {
+          // window.alert("등록된 정보가 없습니다");
+          return;
+        } else if (res.data === true) {
+          findPwConfirmOpenModal();
+        }
         console.log(res);
-        findPwConfirmOpenModal();
       })
       .catch((error) => {
         console.log(error);
@@ -141,7 +146,6 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
                       }}
                       onKeyUp={onlyNumber}
                       className="TextField jumin-input"
-                      id="date"
                       margin="normal"
                       label="주민번호 앞자리"
                       required
@@ -160,7 +164,6 @@ const FindPw = ({ findPwModal, findPwCloseModal }) => {
                       onKeyUp={onlyNumber}
                       type="password"
                       className="TextField jumin-input"
-                      id="date"
                       margin="normal"
                       label="주민번호 뒷자리"
                       required

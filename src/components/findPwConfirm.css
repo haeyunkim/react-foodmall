@@ -7,3 +7,68 @@
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
+.findPwConfirm-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 998;
+  display: flex;
+
+  justify-content: center;
+}
+.newPw-container {
+  position: fixed;
+  width: 440px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #fff;
+  z-index: 999;
+}
+.findPwConfirm-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.findPwConfirm-close-btn-wrapper {
+  position: relative;
+  left: 60px;
+}
+.findPwConfirm-close-btn {
+  border: none;
+  background-color: #fff;
+  font-size: 30px;
+  font-weight: 800;
+}
+#findPwConfirm-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.findPwConfirm-input {
+  width: 330px !important;
+}
+.message {
+  font-weight: bold;
+  font-size: 10px;
+}
+.success {
+  position: relative;
+  left: 55px;
+  color: blue;
+  font-size: 13px;
+  font-weight: 800;
+}
+.error {
+  position: relative;
+  left: 55px;
+  color: #ff2727;
+  font-size: 13px;
+  font-weight: 800;
+}
+#findPwConfirm-btn {
+  width: 330px;
+}
+.findPwConfirm-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}

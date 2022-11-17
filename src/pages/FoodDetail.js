@@ -4,6 +4,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import api from "../apis/axios";
+import "./FoodList.css";
 
 const FoodDetail = ({ BackList }) => {
   let { id } = useParams();
@@ -50,6 +52,27 @@ const FoodDetail = ({ BackList }) => {
       lng2: "127.431725",
     },
   ];
+  const [reply, setReply] = useState("");
+  const [replyList, setReplyList] = useState([]);
+  const name = localStorage.getItem("name");
+
+  const onchange = (e) => {
+    setReply(e.target.value);
+  };
+
+  const handleReplyEnter = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      register();
+      event.target.value = "";
+    }
+  };
+
+  const register = (event) => {
+    const cloneReplyList = [...replyList];
+    cloneReplyList.push(reply);
+    setReplyList(cloneReplyList);
+  };
 
   return (
     <div className="back-page">
@@ -108,6 +131,40 @@ const FoodDetail = ({ BackList }) => {
             {findShop.time}
           </div>
         </section>
+      </div>
+
+      <section className="reply-wrapper container">
+        <h3 className="reply-title">댓글</h3>
+        <div className="reply-container container">
+          <div className="replyList">
+            {replyList.map((item, i) => {
+              return (
+                <article className="reply-area " key={i}>
+                  <div className="replyList-id">{name}</div>
+                  <div className="replyList-comment">{item}</div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+        {/* <div className="more-btn-container">
+          <button className="more-btn">더보기</button>
+        </div> */}
+      </section>
+
+      <div className="textarea-container container">
+        <textarea
+          className="textarea-content"
+          placeholder="댓글을 남겨주세요"
+          onChange={onchange}
+          onKeyPress={handleReplyEnter}
+        ></textarea>
+
+        <div className="register-btn-container">
+          <button type="button" onClick={register} className="register-btn">
+            댓글 등록하기
+          </button>
+        </div>
       </div>
 
       <Footer />

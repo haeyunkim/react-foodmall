@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";

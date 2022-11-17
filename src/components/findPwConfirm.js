@@ -3,6 +3,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeFindPwConfirmMode } from "../store/loginModal";
+import api from "../apis/axios";
 
 const FindPwConfirm = () => {
   const [pw, setPw] = useState("");
@@ -45,8 +46,22 @@ const FindPwConfirm = () => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
+      // handleChangePw();
     }
   };
+
+  // const handleChangePw = () =>{
+  //   api.post("/",{
+  //     pw:pw,
+  //     checkPw:pw,
+  //   })
+  //   .then((res)=>{
+  //     console.log(res);
+  //   })
+  //   .catch((err)=>{
+  //     console.log(err);
+  //   })
+  // }
 
   return (
     <>

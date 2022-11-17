@@ -7,7 +7,7 @@ const Slide = () => {
 
   return (
     <Carousel id="slide-container">
-      <Carousel.Item>
+      <Carousel.Item id="slide-item1">
         <img
           className="d-block"
           src={require("../imgs/mainBg.png")}
@@ -21,10 +21,11 @@ const Slide = () => {
           <p>삼겹살 집</p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item>
+
+      <Carousel.Item id="slide-item2">
         <img
           className="d-block "
-          src={require("../imgs/meat.png")}
+          src={require("../imgs/스파게티.png")}
           alt="Second slide"
           onClick={() => {
             navigate("/foodList");
@@ -33,10 +34,10 @@ const Slide = () => {
 
         <Carousel.Caption>
           <h3>Best2</h3>
-          <p>목살집</p>
+          <p>양식집</p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item>
+      <Carousel.Item id="slide-item3">
         <img
           className="d-block"
           src={require("../imgs/singupbg.png")}
@@ -48,7 +49,7 @@ const Slide = () => {
 
         <Carousel.Caption>
           <h3>Best3</h3>
-          <p>껍데기집</p>
+          <p>떡볶이집</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

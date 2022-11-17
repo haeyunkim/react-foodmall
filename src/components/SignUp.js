@@ -136,7 +136,7 @@ const SignUp = () => {
       .then((res) => {
         console.log(res);
         console.log("success");
-        // localStorage.setItem("signupData", JSON.stringify(res.data));
+        localStorage.setItem("name", name);
         window.alert("회원가입에 성공했습니다.");
         window.location.replace("/");
       })

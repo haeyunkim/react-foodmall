@@ -3,8 +3,13 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Revise from "./Revise";
+
 import Login from "../pages/Login";
-import { changeLoginMode, changeReviseMode } from "../store/loginModal";
+import {
+  changeLoginMode,
+  changeReviseMode,
+  loginModal,
+} from "../store/loginModal";
 import "./Header.css";
 import FindId from "./FindId";
 import FindPw from "./FindPw";
@@ -149,6 +154,7 @@ const Header = () => {
                     id="main-nav-item-4"
                     onClick={() => {
                       dispatch(changeLoginMode(true));
+                      localStorage.removeItem("name");
                     }}
                   >
                     Login

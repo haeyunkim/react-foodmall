@@ -208,7 +208,7 @@ const FindPw = () => {
       ) : (
         <></>
       )}
-      <FindPwConfirm />
+      <FindPwConfirm email={email} setEmail={setEmail} />
       {findPwConfirmModal ? <div className="popup-bg"></div> : <></>}
     </>
   );

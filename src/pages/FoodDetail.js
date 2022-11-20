@@ -72,6 +72,7 @@ const FoodDetail = ({ BackList }) => {
     const cloneReplyList = [...replyList];
     cloneReplyList.push(reply);
     setReplyList(cloneReplyList);
+    setReply("");
   };
 
   return (
@@ -156,6 +157,7 @@ const FoodDetail = ({ BackList }) => {
         <textarea
           className="textarea-content"
           placeholder="댓글을 남겨주세요"
+          value={reply}
           onChange={onchange}
           onKeyPress={handleReplyEnter}
         ></textarea>

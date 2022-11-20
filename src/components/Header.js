@@ -99,6 +99,16 @@ const Header = () => {
       });
   };
 
+  const handleLogout = () => {
+    api
+      .get("/logout")
+      .then((res) => {
+        window.localStorage.removeItem("accessToken");
+        window.location.replace("/");
+      })
+      .catch((err) => {});
+  };
+
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       setLoginStatus(true);
@@ -138,13 +148,7 @@ const Header = () => {
                   <Nav.Link id="main-nav-item" onClick={reviseOpenModal}>
                     회원정보수정
                   </Nav.Link>
-                  <Nav.Link
-                    id="main-nav-item-3"
-                    onClick={() => {
-                      window.localStorage.removeItem("accessToken");
-                      window.location.replace("/");
-                    }}
-                  >
+                  <Nav.Link id="main-nav-item-3" onClick={handleLogout}>
                     로그아웃
                   </Nav.Link>
                 </>

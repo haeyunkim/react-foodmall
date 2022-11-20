@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeFindPwConfirmMode } from "../store/loginModal";
 import api from "../apis/axios";
 
-const FindPwConfirm = () => {
+const FindPwConfirm = ({ email }) => {
   const [pw, setPw] = useState("");
   const [checkPw, setCheckPw] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
@@ -46,22 +46,29 @@ const FindPwConfirm = () => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      // handleChangePw();
+      handleChangePw();
     }
   };
 
-  // const handleChangePw = () =>{
-  //   api.post("/",{
-  //     pw:pw,
-  //     checkPw:pw,
-  //   })
-  //   .then((res)=>{
-  //     console.log(res);
-  //   })
-  //   .catch((err)=>{
-  //     console.log(err);
-  //   })
-  // }
+  const handleChangePw = () => {
+    api
+      .put("/pwUpdate", {
+        password: pw,
+        email: email,
+      })
+      .then((res) => {
+        window.alert("비밀번호가 성공적으로 변경되었습니다.");
+        dispatch(changeFindPwConfirmMode(false));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (pw !== checkPw) {
+      window.alert("비밀번호를 동일하게 입력해주세요!");
+    }
+  };
 
   return (
     <>

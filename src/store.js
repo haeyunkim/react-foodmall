@@ -8,6 +8,7 @@ import {
   findIdConfirmModal,
   findPwConfirmModal,
 } from "./store/loginModal";
+import { guData } from "./store/guData";
 
 export default configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export default configureStore({
     reviseModal: reviseModal.reducer,
     findIdConfirmModal: findIdConfirmModal.reducer,
     findPwConfirmModal: findPwConfirmModal.reducer,
+    guData: guData.reducer,
   },
 });

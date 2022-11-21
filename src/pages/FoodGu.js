@@ -5,126 +5,58 @@ import Footer from "../components/Footer";
 import { Container, Col, Row } from "react-bootstrap";
 import Paging from "../components/Paging";
 import "./FoodGu.css";
+import storeApi from "../apis/storeApi";
+import { setGuData } from "../store/guData";
+import { useDispatch, useSelector } from "react-redux";
 
 const FoodGu = () => {
+  const dispatch = useDispatch();
+
+  let guData = useSelector((state) => state.guData);
+
   const [title, setTitle] = useState([
     {
       id: 0,
       title: "대덕구 음식점",
+      name2: "Daedeok-gu",
     },
     {
       id: 1,
       title: "유성구 음식점",
+      name2: "Yuseong-gu",
     },
     {
       id: 2,
       title: "서구 음식점",
+      name2: "Seo-gu",
     },
     {
       id: 3,
       title: "중구 음식점",
+      name2: "jung-gu",
     },
     {
       id: 4,
       title: "동구 음식점",
+      name2: "Dong-gu",
     },
   ]);
 
-  const [test, setTest1] = useState([
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/2039075_1629353806675235.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "사과",
-      address: "븅신",
-      content: "나는 병신",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/2039075_1629353805535208.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "파인애플",
-      address: "병신",
-      content: "너도병신",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/supporters_admin/srfp-oodne1g-w.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "복숭아",
-      address: "가나다",
-      content: "우린병신",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-    {
-      img: "https://mp-seoul-image-production-s3.mangoplate.com/16835/1097442_1635663674187_29399?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      title: "포도",
-      address: "유성구",
-      content: "아자아자",
-    },
-  ]);
   let { id } = useParams();
-  const [item, setItem] = useState([]); //아이템
-  const [count, setCount] = useState(); //아이템 총 수
+  const [item, setItem] = useState(); //아이템
   const [currentPage, setCurrentPage] = useState(1); //현재 페이지
   const [postPerPage] = useState(10); //페이지당 게시물 개수
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); //현재 페이지의 첫번째 아이템 인덱스
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); //현재 페이지의 마지막 아이템 인덱스
   const [currentPost, setCurrentPost] = useState(0); //현재 페이지에서 보여지는 아이템들
+  const [count, setCount] = useState("");
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((data) => setItem(data));
-  }, []);
-
-  useEffect(() => {
-    setCount(item.length);
+    setCount(guData.length);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setIndexOfLastPost(currentPage * postPerPage);
-    setCurrentPost(item.slice(indexOfFirstPost, indexOfLastPost));
-  }, [currentPage, indexOfFirstPost, indexOfLastPost, item, postPerPage]);
+    setCurrentPost(guData.slice(indexOfFirstPost, indexOfLastPost));
+  }, [currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
 
   const handlePageChange = (e) => {
     setCurrentPage(e);
@@ -144,7 +76,7 @@ const FoodGu = () => {
           </>
         );
       })}
-      {currentPost && item.length > 0 ? (
+      {currentPost && guData.length > 0 ? (
         currentPost.map((item) => (
           <>
             <div id="foodGu-list-all" className="container">
@@ -156,8 +88,8 @@ const FoodGu = () => {
                     </div>
 
                     <div className="foodGu-text-container">
-                      <h3 className="foodGu-text-title1">{item.title}</h3>
-                      <p className="foodGu-text-title2">{item.id}</p>
+                      <h3 className="foodGu-text-title1">{item.name}</h3>
+                      <p className="foodGu-text-title2">{item.address}</p>
                       <p>{item.content}</p>
                     </div>
                   </section>

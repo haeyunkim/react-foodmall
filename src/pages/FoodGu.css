@@ -8,7 +8,9 @@
   border-bottom: 1px solid #dbdbdb;
   box-sizing: border-box;
 }
-
+#foodGu-list {
+  cursor: pointer;
+}
 #foodGu-list-container {
   border: 1px solid red;
   display: flex;

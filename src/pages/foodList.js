@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Data from "../data";
 import Header from "../components/Header";
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,33 +8,43 @@ import { Routes, Route } from "react-router-dom";
 import FoodDetail from "./FoodDetail";
 import Search from "../components/Search";
 import "./FoodList.css";
+import storeApi from "../apis/storeApi";
+import FoodGu from "./FoodGu";
+import { setGuData } from "../store/guData";
+import { useDispatch, useSelector } from "react-redux";
 
 const FoodList = () => {
-  const [data, setData] = useState(Data);
+  // const [guData, setGuData] = useState([]);
+  // const [guCount, setGuCount] = useState("");
   const [list, setList] = useState([
     {
       image:
         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile9.uf.tistory.com%2Fimage%2F9953D5365C7B2574020128",
       name: "대덕구",
+      name2: "Daedeok-gu",
     },
     {
       image:
         "https://cdn.daejonilbo.com/news/photo/201207/1014602_110031_4728.jpg",
       name: "유성구",
+      name2: "Yuseong-gu",
     },
     {
       image:
         "https://news.imaeil.com/photos/2020/04/29/2020042911344559145_l.jpg",
       name: "서구",
+      name2: "Seo-gu",
     },
     {
       image:
         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile27.uf.tistory.com%2Fimage%2F998F2E405C65038A2688F8",
       name: "중구",
+      name2: "jung-gu",
     },
     {
       image: "https://t1.daumcdn.net/cfile/tistory/225A6940566E28852B",
       name: "동구",
+      name2: "Dong-gu",
     },
   ]);
 
@@ -122,12 +131,31 @@ const FoodList = () => {
   ]);
 
   const navigate = useNavigate();
-  let { id } = useParams();
+  let { name } = useParams();
+  const dispatch = useDispatch();
+
+  let guData = useSelector((state) => state.guData);
 
   const onSubmit = (e) => {
     e.preventDefault();
   };
 
+  // useEffect(() => {
+  //   console.log(guCount, "effect구DATA");
+  // }, [guCount]);
+
+  const handleGu = (i) => {
+    storeApi
+      .get(`/address?address=${list[i].name2}`)
+      .then((res) => {
+        navigate(`/store/address/${i}`);
+        dispatch(setGuData(res.data.list));
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "클릭에러");
+      });
+  };
   return (
     <div id="foodlist-main">
       <Header />
@@ -145,7 +173,7 @@ const FoodList = () => {
                     src={item.image}
                     width="50%"
                     onClick={() => {
-                      navigate(`/foodList/gu/${i}`);
+                      handleGu(i);
                     }}
                   />
                   <p className="gu-title">{item.name}</p>
@@ -198,32 +226,6 @@ const FoodList = () => {
       </section>
 
       <Footer />
-
-      {/* <button
-        onClick={() => {
-          axios
-            .get("http://43.200.99.107:8080/hello-api")
-            .then((result) => {
-              console.log(result.data);
-              let copy = [...data, ...result.data];
-              setData(copy);
-            })
-            .catch(() => {
-              console.log("fail");
-            });
-        }}
-      >
-        클릭
-      </button>
-      {data.map((item, i) => {
-        return (
-          <div key={i}>
-            <div>{item.name}</div>
-            <div>{item.age}</div>
-            <div>{item.job}</div>
-          </div>
-        );
-      })} */}
     </div>
   );
 };

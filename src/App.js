@@ -31,7 +31,7 @@ function App() {
             path="/foodList/detail/:id"
             element={<FoodDetail BackList={BackList} />}
           />
-          <Route path="/foodList/gu/:id" element={<FoodGu />} />
+          <Route path="/store/address/:name" element={<FoodGu />} />
           <Route path="/foodList/:word" element={<SearchPage />} />
         </Routes>
       </StoreContext.Provider>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Container, Col, Row } from "react-bootstrap";
@@ -11,9 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const FoodGu = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   let guData = useSelector((state) => state.guData);
-
   const [title, setTitle] = useState([
     {
       id: 0,
@@ -41,7 +40,6 @@ const FoodGu = () => {
       name2: "Dong-gu",
     },
   ]);
-
   let { id } = useParams();
   const [item, setItem] = useState(); //아이템
   const [currentPage, setCurrentPage] = useState(1); //현재 페이지
@@ -50,6 +48,9 @@ const FoodGu = () => {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); //현재 페이지의 마지막 아이템 인덱스
   const [currentPost, setCurrentPost] = useState(0); //현재 페이지에서 보여지는 아이템들
   const [count, setCount] = useState("");
+  // let findId = guData.find((item, i) => {
+  //   return item.id === id ;
+  // });
 
   useEffect(() => {
     setCount(guData.length);
@@ -77,12 +78,17 @@ const FoodGu = () => {
         );
       })}
       {currentPost && guData.length > 0 ? (
-        currentPost.map((item) => (
-          <>
+        currentPost.map((item, i) => (
+          <div key={i}>
             <div id="foodGu-list-all" className="container">
-              <Row className=" row" id="">
+              <Row className=" row">
                 <Col sm={12} className="col-6" id="foodGu-list-wrapper">
-                  <section id="foodGu-list">
+                  <section
+                    id="foodGu-list"
+                    onClick={() => {
+                      navigate(`/store/address/${i}/${item.id}`);
+                    }}
+                  >
                     <div className="foodGu-img-box">
                       <img id="foodgu-img" src={item.img} />
                     </div>
@@ -96,7 +102,7 @@ const FoodGu = () => {
                 </Col>
               </Row>
             </div>
-          </>
+          </div>
         ))
       ) : (
         <div></div>

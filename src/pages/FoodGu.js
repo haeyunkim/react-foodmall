@@ -94,7 +94,9 @@ const FoodGu = () => {
                     </div>
 
                     <div className="foodGu-text-container">
-                      <h3 className="foodGu-text-title1">{item.name}</h3>
+                      <div className="foodGu-title-wrapper">
+                        <h3 className="foodGu-text-title1">{item.name}</h3>
+                      </div>
                       <p className="foodGu-text-title2">{item.address}</p>
                       <p>{item.content}</p>
                     </div>

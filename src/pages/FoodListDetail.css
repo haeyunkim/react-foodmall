@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Hi+Melody&family=Nanum+Gothic&family=Poor+Story&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Hi+Melody&family=Nanum+Gothic&family=Poor+Story&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+/* #foodlist-main {
+  overflow-x: hidden;
+} */
+.foodListDetail-page {
+  width: 100%;
+  border: 1px solid black;
+  border: none;
+}
+.foodListDetail-img-wrapper {
+  width: 100%;
+  /* position: relative; */
+  display: flex;
+}
+.foodListDetail-detail-img1,
+.foodListDetail-detail-img2,
+.foodListDetail-detail-img3,
+.foodListDetail-detail-img4 {
+  width: 250px;
+  height: 250px;
+  margin: 0 12px;
+}
+/* .backMap-container {
+  width: 100%;
+  height: 320px;
+} */
+/* @media screen and (max-width: 48rem) {
+  .foodListDetail-page {
+    overflow-x: hidden;
+  }
+  .foodListDetail-detail-img1,
+  .foodListDetail-detail-img2 {
+    width: 10rem;
+    height: 10rem;
+  }
+  .foodListDetail-detail-img3,
+  .foodListDetail-detail-img4 {
+    width: 10.5rem;
+    height: 10rem;
+    margin-top: 15px;
+  }
+
+  .foodListDetail-detail-img4 {
+    width: 100%;
+    position: relative;
+    right: 20px;
+  }
+
+  .backMap-container {
+    height: 200px;
+    position: relative;
+    right: 10px;
+  }
+  .foodListDetail-img-wrapper {
+    position: relative;
+    left: 10px;
+  }
+} */
+.foodListDetail-detail-name {
+  font-family: "SpoqaHanSans", "Noto Sans SC", "APPLE SD Gothic NEO",
+    "sans-serif";
+  font-size: 25px;
+  border-bottom: 1px solid #6c757d;
+  height: 120px;
+  /* display: flex;
+  align-items: center; */
+}
+.foodListDetail-name {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.foodListDetail-score {
+  margin-left: 10px;
+}
+.foodListDetail-title {
+  height: 200px;
+  border-bottom: 1px solid #6c757d;
+}
+.foodListDetail-detail-item-wrapper {
+  height: 200px;
+  font-size: 17px;
+  position: relative;
+  top: 15px;
+}
+
+.foodListDetail-detail-item-wrapper tr {
+  margin-top: 10px;
+}
+
+.foodLfoodListDetail-detail-item-name {
+  color: #6c757d;
+  cursor: no-drop;
+}
+.foodListDetail-page {
+  margin: 0px;
+  padding: 0px;
+  overflow-y: hidden;
+}
+
+.back-container {
+  border-bottom: 1px solid black;
+}
+
+.back-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 15px;
+}
+
+.back-img:hover {
+  transform: scale(1.2);
+}
+
+/* .back-img:hover ~ p {
+  text-decoration: underline;
+  color: #ff2727;
+} */
+
+.reply-foodListDetail-wrapper {
+  border-bottom: 1px solid #6c757d;
+  height: 270px;
+  margin-top: 15px;
+}
+.reply-foodListDetail-container {
+  margin-top: 10px;
+  height: 200px;
+  width: 100%;
+  background-color: #fafafa;
+  overflow-y: auto;
+}
+.replyList-foodListDetail-comment {
+  /* border: 1px solid blue; */
+  height: 40px;
+  width: 100%;
+}
+
+.foodListDetail-textarea-container {
+  margin-top: 20px;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 150px;
+}
+.foodListDetail-textarea-content {
+  width: 100%;
+  height: 60px;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+}
+.foodListDetail-register-btn-container {
+  display: flex;
+  justify-content: end;
+}
+.foodListDetail-register-btn {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background-color: darkgray;
+  font-weight: 800;
+}
+.foodListDetail-reply-title {
+  font-weight: 800;
+}
+.stars-container {
+  color: gray;
+  cursor: pointer;
+  margin-left: 10px;
+}
+#star:hover {
+  color: #fcc419;
+}
+#star:hover ~ #star {
+  color: gray;
+}
+.yellowStar {
+  color: #fcc419;
+}

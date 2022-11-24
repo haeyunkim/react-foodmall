@@ -9,6 +9,8 @@ import { FaStar } from "react-icons/fa";
 import Score from "../apis/score";
 import reply from "../apis/reply";
 import storeApi from "../apis/storeApi";
+import axios from "axios";
+import { click } from "@testing-library/user-event/dist/click";
 
 const FoodListDetail = () => {
   let { name } = useParams();
@@ -68,15 +70,12 @@ const FoodListDetail = () => {
       .get(`/address?address=${findId.name2}`)
       .then((res) => {
         setGuData(res.data.list);
+        console.log(res, "클릭성공");
       })
       .catch((err) => {
         console.log(err, "클릭에러");
       });
   };
-
-  // useEffect(() => {
-  //   sendScore();
-  // }, [clicked]);
 
   const sendScore = () => {
     let score = clicked.filter(Boolean).length;

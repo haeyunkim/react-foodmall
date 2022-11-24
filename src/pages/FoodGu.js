@@ -103,12 +103,10 @@ const FoodGu = () => {
                       <img id="foodgu-img" src={item.img} />
                     </div>
 
-                    <div className="foodGu-text-container">
-                      <div className="foodGu-title-wrapper">
-                        <h3 className="foodGu-text-title1">{item.name}</h3>
-                      </div>
+                    <div className="foodGu-text-container container">
+                      <h3 className="foodGu-text-title1">{item.name}</h3>
                       <p className="foodGu-text-title2">{item.address}</p>
-                      <p>{item.content}</p>
+                      <p className="foodGu-score">{item.score.toFixed(1)}</p>
                     </div>
                   </section>
                 </Col>

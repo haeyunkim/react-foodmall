@@ -8,6 +8,8 @@ import api from "../apis/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { changeSignUpMode } from "../store/loginModal";
 import "./SignUp.css";
+import { setMyName } from "../store/myName";
+import { useEffect } from "react";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +32,7 @@ const SignUp = () => {
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNumber, setIsNumber] = useState(false);
   let signUpModal = useSelector((state) => state.signUpModal);
+  let myName = useSelector((state) => state.myName);
 
   const onChangeEmail = (e) => {
     const emailRegex =
@@ -133,10 +136,12 @@ const SignUp = () => {
         backRrn: jumin2,
         number: num,
       })
+
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         console.log("success");
-        localStorage.setItem("name", name);
+        let bringName = res.data.name;
+        dispatch(setMyName(bringName));
         window.alert("회원가입에 성공했습니다.");
         window.location.replace("/");
       })

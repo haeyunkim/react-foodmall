@@ -112,9 +112,7 @@ const Header = () => {
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       setLoginStatus(true);
-      console.log("값이 있습니다");
     } else {
-      console.log("값이 없습니다.");
     }
   }, [loginStatus]);
 

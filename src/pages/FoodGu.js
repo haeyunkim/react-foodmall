@@ -6,13 +6,11 @@ import { Container, Col, Row } from "react-bootstrap";
 import Paging from "../components/Paging";
 import "./FoodGu.css";
 import storeApi from "../apis/storeApi";
-import { setGuData } from "../store/guData";
-import { useDispatch, useSelector } from "react-redux";
 
 const FoodGu = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  let guData = useSelector((state) => state.guData);
+  let [guData, setGuData] = useState([]);
+  let { name } = useParams();
   const [title, setTitle] = useState([
     {
       id: 0,
@@ -48,16 +46,35 @@ const FoodGu = () => {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); //현재 페이지의 마지막 아이템 인덱스
   const [currentPost, setCurrentPost] = useState(0); //현재 페이지에서 보여지는 아이템들
   const [count, setCount] = useState("");
-  // let findId = guData.find((item, i) => {
-  //   return item.id === id ;
-  // });
+
+  let findId = title.find((item, i) => {
+    return item.id === Number(id);
+  });
 
   useEffect(() => {
+    handleGuData();
+    console.log(guData);
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(guData) && guData.length === 0) return;
     setCount(guData.length);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setIndexOfLastPost(currentPage * postPerPage);
     setCurrentPost(guData.slice(indexOfFirstPost, indexOfLastPost));
-  }, [currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
+  }, [guData, currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
+
+  const handleGuData = async () => {
+    await storeApi
+      .get(`/address?address=${findId.name2}`)
+      .then((res) => {
+        setGuData(res.data.list);
+        console.log(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err, "클릭에러");
+      });
+  };
 
   const handlePageChange = (e) => {
     setCurrentPage(e);
@@ -66,17 +83,10 @@ const FoodGu = () => {
   return (
     <>
       <Header />
-      {title.map((item, i) => {
-        return (
-          <>
-            {Number(id) === item.id && (
-              <section key={i} id="gu-title-container" className="container">
-                <div id="foodGu-title">{item.title}</div>
-              </section>
-            )}
-          </>
-        );
-      })}
+      <section id="gu-title-container" className="container">
+        <div id="foodGu-title">{findId.title}</div>
+      </section>
+
       {currentPost && guData.length > 0 ? (
         currentPost.map((item, i) => (
           <div key={i}>
@@ -86,7 +96,7 @@ const FoodGu = () => {
                   <section
                     id="foodGu-list"
                     onClick={() => {
-                      navigate(`/store/address/${i}/${item.id}`);
+                      navigate(`/store/address/${findId.id}/${item.id}`);
                     }}
                   >
                     <div className="foodGu-img-box">

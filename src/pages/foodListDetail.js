@@ -6,28 +6,85 @@ import { useParams } from "react-router-dom";
 import "./FoodListDetail.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import { click } from "@testing-library/user-event/dist/click";
-import styled from "styled-components";
 import Score from "../apis/score";
+import reply from "../apis/reply";
+import storeApi from "../apis/storeApi";
 
 const FoodListDetail = () => {
+  let { name } = useParams();
   let { id } = useParams();
-  const guData = useSelector((state) => state.guData);
   const [reply, setReply] = useState("");
   const [replyList, setReplyList] = useState([]);
-  const name = localStorage.getItem("name");
   const array = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const [title, setTitle] = useState([
+    {
+      id: 0,
+      title: "대덕구 음식점",
+      name2: "Daedeok-gu",
+    },
+    {
+      id: 1,
+      title: "유성구 음식점",
+      name2: "Yuseong-gu",
+    },
+    {
+      id: 2,
+      title: "서구 음식점",
+      name2: "Seo-gu",
+    },
+    {
+      id: 3,
+      title: "중구 음식점",
+      name2: "jung-gu",
+    },
+    {
+      id: 4,
+      title: "동구 음식점",
+      name2: "Dong-gu",
+    },
+  ]);
+  let [guData, setGuData] = useState([]);
+
+  let findId = title.find((item, i) => {
+    return item.id === Number(name);
+  });
+
+  let findData = guData.find((item, i) => {
+    return item.id === Number(id);
+  });
 
   useEffect(() => {
+    handleGuData();
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(guData) && guData.length === 0) return;
     sendScore();
-  }, [clicked]);
+  }, [guData, clicked]);
+
+  const handleGuData = async () => {
+    await storeApi
+      .get(`/address?address=${findId.name2}`)
+      .then((res) => {
+        setGuData(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err, "클릭에러");
+      });
+  };
+
+  // useEffect(() => {
+  //   sendScore();
+  // }, [clicked]);
 
   const sendScore = () => {
     let score = clicked.filter(Boolean).length;
+
+    let scoreId = findData.id;
     Score.post("/", {
       score: score,
-      id: findData.id,
+      id: scoreId,
     })
       .then((res) => {
         console.log(res, "score 성공");
@@ -36,10 +93,6 @@ const FoodListDetail = () => {
         console.log(err, "score 에러");
       });
   };
-
-  let findData = guData.find((item, i) => {
-    return item.id === Number(id);
-  });
 
   const onchange = (e) => {
     setReply(e.target.value);
@@ -161,8 +214,8 @@ const FoodListDetail = () => {
               <div className="replyList">
                 {replyList.map((item, i) => {
                   return (
-                    <article className="reply-area " key={i}>
-                      <div className="replyList-id">{name}</div>
+                    <article className="reply-area" key={i}>
+                      <div className="replyList-id">{}</div>
                       <div className="replyList-foodListDetail-comment">
                         {item}
                       </div>

@@ -18,30 +18,35 @@ const FoodList = () => {
   // const [guCount, setGuCount] = useState("");
   const [list, setList] = useState([
     {
+      id: 0,
       image:
         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile9.uf.tistory.com%2Fimage%2F9953D5365C7B2574020128",
       name: "대덕구",
       name2: "Daedeok-gu",
     },
     {
+      id: 1,
       image:
         "https://cdn.daejonilbo.com/news/photo/201207/1014602_110031_4728.jpg",
       name: "유성구",
       name2: "Yuseong-gu",
     },
     {
+      id: 2,
       image:
         "https://news.imaeil.com/photos/2020/04/29/2020042911344559145_l.jpg",
       name: "서구",
       name2: "Seo-gu",
     },
     {
+      id: 3,
       image:
         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile27.uf.tistory.com%2Fimage%2F998F2E405C65038A2688F8",
       name: "중구",
       name2: "jung-gu",
     },
     {
+      id: 4,
       image: "https://t1.daumcdn.net/cfile/tistory/225A6940566E28852B",
       name: "동구",
       name2: "Dong-gu",
@@ -131,7 +136,7 @@ const FoodList = () => {
   ]);
 
   const navigate = useNavigate();
-  let { name } = useParams();
+  let { id } = useParams();
   const dispatch = useDispatch();
 
   let guData = useSelector((state) => state.guData);
@@ -145,16 +150,7 @@ const FoodList = () => {
   // }, [guCount]);
 
   const handleGu = (i) => {
-    storeApi
-      .get(`/address?address=${list[i].name2}`)
-      .then((res) => {
-        navigate(`/store/address/${i}`);
-        dispatch(setGuData(res.data.list));
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "클릭에러");
-      });
+    navigate(`/store/address/${i}`);
   };
   return (
     <div id="foodlist-main">

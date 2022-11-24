@@ -12,8 +12,6 @@ import "./App.css";
 import SearchPage from "./pages/SearchPage";
 import FoodListDetail from "./pages/foodListDetail";
 
-const StoreContext = createContext();
-
 function App() {
   return (
     <div className="app">
@@ -21,20 +19,19 @@ function App() {
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"
       ></meta>
-      <StoreContext.Provider>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/foodList" element={<FoodList />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/foodList/detail/:id"
-            element={<FoodDetail BackList={BackList} />}
-          />
-          <Route path="/store/address/:name" element={<FoodGu />} />
-          <Route path="/foodList/:word" element={<SearchPage />} />
-          <Route path="/store/address/:name/:id" element={<FoodListDetail />} />
-        </Routes>
-      </StoreContext.Provider>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/foodList" element={<FoodList />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/foodList/detail/:id"
+          element={<FoodDetail BackList={BackList} />}
+        />
+        <Route path="/store/address/:id" element={<FoodGu />} />
+        <Route path="/foodList/:word" element={<SearchPage />} />
+        <Route path="/store/address/:name/:id" element={<FoodListDetail />} />
+      </Routes>
+
       <script
         src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
         crossorigin

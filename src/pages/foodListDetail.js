@@ -49,6 +49,7 @@ const FoodListDetail = () => {
   let [guData, setGuData] = useState([]);
   const myName = localStorage.getItem("myName");
   const myEmail = localStorage.getItem("myEmail");
+  const [writeTime, setWriteTime] = useState("");
 
   let findId = title.find((item, i) => {
     return item.id === Number(name);
@@ -110,22 +111,24 @@ const FoodListDetail = () => {
   };
 
   const register = (event) => {
-    replyApi
-      .post("/add", {
-        content: replyList,
-        id: findData.id,
-        email: myEmail,
-      })
-      .then((res) => {
-        console.log(res, "댓글추가 성공");
-      })
-      .catch((err) => {
-        console.log(err, "댓글 추가 실패");
-      });
     const cloneReplyList = [...replyList];
     cloneReplyList.push(reply);
     setReplyList(cloneReplyList);
     setReply("");
+    replyApi
+      .post("/add", {
+        content: reply,
+        id: findData.id,
+        email: myEmail,
+      })
+      .then((res) => {
+        // console.log(res.data.writeTime, "댓글추가 성공");
+        setWriteTime(res.data.writeTime);
+      })
+      .catch((err) => {
+        console.log(err, "댓글 추가 실패");
+        console.log(cloneReplyList);
+      });
   };
 
   const handleStarClick = (item) => {
@@ -231,12 +234,11 @@ const FoodListDetail = () => {
                   return (
                     <article className="reply-area" key={i}>
                       <div className="replyList-id">{myName}</div>
-                      <section>
-                        <div className="replyList-foodListDetail-comment">
-                          {item}
-                        </div>
-                        <button>삭제하기</button>
-                      </section>
+
+                      <div className="replyList-foodListDetail-comment">
+                        {item}
+                      </div>
+                      <div className="replyList-writeTime">{writeTime}</div>
                     </article>
                   );
                 })}

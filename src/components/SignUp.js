@@ -141,6 +141,9 @@ const SignUp = () => {
         console.log(res.data);
         console.log("success");
         let bringName = res.data.name;
+        let bringEmail = res.data.email;
+        localStorage.setItem("myName", bringName);
+        localStorage.setItem("myEmail", bringEmail);
         dispatch(setMyName(bringName));
         window.alert("회원가입에 성공했습니다.");
         window.location.replace("/");

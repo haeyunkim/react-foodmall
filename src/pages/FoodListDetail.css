@@ -118,19 +118,29 @@
 
 .reply-foodListDetail-wrapper {
   border-bottom: 1px solid #6c757d;
-  height: 270px;
+  height: 350px;
   margin-top: 15px;
 }
 .reply-foodListDetail-container {
   margin-top: 10px;
-  height: 200px;
+  height: 300px;
   width: 100%;
   background-color: #fafafa;
   overflow-y: auto;
 }
+.reply-area {
+  /* border: 1px solid red; */
+  height: 100px;
+}
+.replyList-id {
+  font-weight: 900;
+  font-size: 23px;
+}
 .replyList-foodListDetail-comment {
   height: 40px;
   width: 100%;
+  font-weight: 500;
+  font-size: 21px;
 }
 
 .foodListDetail-textarea-container {

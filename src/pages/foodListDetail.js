@@ -10,7 +10,7 @@ import Score from "../apis/score";
 import reply from "../apis/reply";
 import storeApi from "../apis/storeApi";
 import axios from "axios";
-import { click } from "@testing-library/user-event/dist/click";
+import replyApi from "../apis/reply";
 
 const FoodListDetail = () => {
   let { name } = useParams();
@@ -47,6 +47,8 @@ const FoodListDetail = () => {
     },
   ]);
   let [guData, setGuData] = useState([]);
+  const myName = localStorage.getItem("myName");
+  const myEmail = localStorage.getItem("myEmail");
 
   let findId = title.find((item, i) => {
     return item.id === Number(name);
@@ -81,16 +83,18 @@ const FoodListDetail = () => {
     let score = clicked.filter(Boolean).length;
 
     let scoreId = findData.id;
-    Score.post("/", {
-      score: score,
-      id: scoreId,
-    })
-      .then((res) => {
-        console.log(res, "score 성공");
+    if (score > 0) {
+      Score.post("/", {
+        score: score,
+        id: scoreId,
       })
-      .catch((err) => {
-        console.log(err, "score 에러");
-      });
+        .then((res) => {
+          console.log(res, "score 성공");
+        })
+        .catch((err) => {
+          console.log(err, "score 에러");
+        });
+    }
   };
 
   const onchange = (e) => {
@@ -106,6 +110,18 @@ const FoodListDetail = () => {
   };
 
   const register = (event) => {
+    replyApi
+      .post("/add", {
+        content: replyList,
+        id: findData.id,
+        email: myEmail,
+      })
+      .then((res) => {
+        console.log(res, "댓글추가 성공");
+      })
+      .catch((err) => {
+        console.log(err, "댓글 추가 실패");
+      });
     const cloneReplyList = [...replyList];
     cloneReplyList.push(reply);
     setReplyList(cloneReplyList);
@@ -214,10 +230,13 @@ const FoodListDetail = () => {
                 {replyList.map((item, i) => {
                   return (
                     <article className="reply-area" key={i}>
-                      <div className="replyList-id">{}</div>
-                      <div className="replyList-foodListDetail-comment">
-                        {item}
-                      </div>
+                      <div className="replyList-id">{myName}</div>
+                      <section>
+                        <div className="replyList-foodListDetail-comment">
+                          {item}
+                        </div>
+                        <button>삭제하기</button>
+                      </section>
                     </article>
                   );
                 })}

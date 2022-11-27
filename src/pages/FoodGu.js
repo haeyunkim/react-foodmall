@@ -6,6 +6,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Paging from "../components/Paging";
 import "./FoodGu.css";
 import storeApi from "../apis/storeApi";
+import axios from "axios";
 
 const FoodGu = () => {
   const navigate = useNavigate();
@@ -51,9 +52,29 @@ const FoodGu = () => {
     return item.id === Number(id);
   });
 
+  let findData = guData.find((item, i) => {
+    return item.id === Number(id);
+  });
+
   useEffect(() => {
     handleGuData();
     console.log(guData);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://43.200.99.107:8080/store/all`, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res, "상점정보가져오기성공");
+        // setClicked(Math.round());
+      })
+      .catch((err) => {
+        console.log(err, "상점정보가져오기에러");
+      });
   }, []);
 
   useEffect(() => {

@@ -104,6 +104,7 @@ const Header = () => {
       .get("/logout")
       .then((res) => {
         window.localStorage.removeItem("accessToken");
+        window.localStorage.removeItem("myName");
         window.location.replace("/");
       })
       .catch((err) => {});

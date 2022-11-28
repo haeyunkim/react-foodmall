@@ -50,9 +50,10 @@ const FoodListDetail = () => {
   ]);
   let [guData, setGuData] = useState([]);
   const myName = localStorage.getItem("myName");
-  const myEmail = localStorage.getItem("myEmail");
+  const email = localStorage.getItem("email");
   const [writeTime, setWriteTime] = useState("");
   const [dbReply, setDbReply] = useState([]);
+  const atk = localStorage.getItem("accessToken");
 
   let findId = title.find((item, i) => {
     return item.id === Number(name);
@@ -77,6 +78,20 @@ const FoodListDetail = () => {
       window.alert("로그인 후 이용해주세요!");
       navigate("/");
     }
+  };
+
+  const handleDelete = async (i) => {
+    await replyApi
+      .post("/remove", {
+        ano: dbReply[i].ano,
+      })
+      .then((res) => {
+        console.log("삭제 url 성공", res);
+        handleReply();
+      })
+      .catch((err) => {
+        console.log("삭제 url 실패", err);
+      });
   };
 
   const handleGuData = async () => {
@@ -134,24 +149,28 @@ const FoodListDetail = () => {
   };
 
   const register = (event) => {
-    const cloneReplyList = [...dbReply];
-    cloneReplyList.push(reply);
-    setDbReply(cloneReplyList);
+    if (reply.length === 0) {
+      window.alert("댓글을 입력해주세요!");
+    } else {
+      const cloneReplyList = [...dbReply];
+      cloneReplyList.push(reply);
+      setDbReply(cloneReplyList);
 
-    setReply("");
-    replyApi
-      .post("/add", {
-        content: reply,
-        id: findData.id,
-        email: myEmail,
-      })
-      .then((res) => {
-        console.log(res, "댓글추가 성공");
-        handleReply();
-      })
-      .catch((err) => {
-        console.log(err, "댓글 추가 실패");
-      });
+      setReply("");
+      replyApi
+        .post("/add", {
+          content: reply,
+          id: findData.id,
+          email: email,
+        })
+        .then((res) => {
+          console.log(res, "댓글추가 성공");
+          handleReply();
+        })
+        .catch((err) => {
+          console.log(err, "댓글 추가 실패");
+        });
+    }
   };
 
   const handleStarClick = (item) => {
@@ -256,8 +275,21 @@ const FoodListDetail = () => {
                 {dbReply.map((item, i) => {
                   return (
                     <article className="reply-area" key={i}>
-                      <div className="replyList-id">{item.name}</div>
-
+                      <section className="replyList-delete-area">
+                        <div className="replyList-id">{item.name}</div>
+                        {atk ? (
+                          <div
+                            className="replyList-delete-btn"
+                            onClick={() => {
+                              handleDelete(i);
+                            }}
+                          >
+                            X
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </section>
                       <div className="replyList-foodListDetail-comment">
                         {item.content}
                       </div>

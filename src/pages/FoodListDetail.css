@@ -129,8 +129,15 @@
   overflow-y: auto;
 }
 .reply-area {
-  /* border: 1px solid red; */
   height: 130px;
+}
+.replyList-delete-area {
+  display: flex;
+  justify-content: space-between;
+}
+.replyList-delete-btn {
+  cursor: pointer;
+  float: right;
 }
 .replyList-id {
   font-weight: 900;

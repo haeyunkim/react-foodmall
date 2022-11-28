@@ -79,6 +79,7 @@ const Login = ({ setLoginStatus }) => {
 
         window.localStorage.setItem("accessToken", accessToken);
         window.localStorage.setItem("refreshToken", refreshToken);
+        window.localStorage.setItem("email", id);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
 
         window.alert("로그인에 성공했습니다.");

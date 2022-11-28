@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let guData = createSlice({
   name: "guData",
-  initialState: [],
+  initialState: "",
   reducers: {
     setGuData(state, action) {
       return (state = action.payload);

@@ -62,22 +62,6 @@ const FoodGu = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://43.200.99.107:8080/store/all`, {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res, "상점정보가져오기성공");
-        // setClicked(Math.round());
-      })
-      .catch((err) => {
-        console.log(err, "상점정보가져오기에러");
-      });
-  }, []);
-
-  useEffect(() => {
     if (Array.isArray(guData) && guData.length === 0) return;
     setCount(guData.length);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);

@@ -11,8 +11,10 @@ import reply from "../apis/reply";
 import storeApi from "../apis/storeApi";
 import axios from "axios";
 import replyApi from "../apis/reply";
+import { useNavigate } from "react-router-dom";
 
 const FoodListDetail = () => {
+  const navigate = useNavigate();
   let { name } = useParams();
   let { id } = useParams();
   const [reply, setReply] = useState("");
@@ -50,6 +52,7 @@ const FoodListDetail = () => {
   const myName = localStorage.getItem("myName");
   const myEmail = localStorage.getItem("myEmail");
   const [writeTime, setWriteTime] = useState("");
+  const [dbReply, setDbReply] = useState([]);
 
   let findId = title.find((item, i) => {
     return item.id === Number(name);
@@ -65,18 +68,38 @@ const FoodListDetail = () => {
 
   useEffect(() => {
     if (Array.isArray(guData) && guData.length === 0) return;
+    handleReply();
     sendScore();
   }, [guData, clicked]);
+
+  const notLogin = () => {
+    if (!localStorage.getItem("accessToken")) {
+      window.alert("로그인 후 이용해주세요!");
+      navigate("/");
+    }
+  };
 
   const handleGuData = async () => {
     await storeApi
       .get(`/address?address=${findId.name2}`)
       .then((res) => {
+        console.log("구데이터 가져오기");
         setGuData(res.data.list);
-        console.log(res, "클릭성공");
       })
       .catch((err) => {
         console.log(err, "클릭에러");
+      });
+  };
+
+  const handleReply = async () => {
+    await storeApi
+      .get(`/id?id=${findData.id}`)
+      .then((res) => {
+        console.log(res.data, "댓글 가져오기");
+        setDbReply(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err, "댓글가져오기실패");
       });
   };
 
@@ -111,9 +134,10 @@ const FoodListDetail = () => {
   };
 
   const register = (event) => {
-    const cloneReplyList = [...replyList];
+    const cloneReplyList = [...dbReply];
     cloneReplyList.push(reply);
-    setReplyList(cloneReplyList);
+    setDbReply(cloneReplyList);
+
     setReply("");
     replyApi
       .post("/add", {
@@ -122,12 +146,11 @@ const FoodListDetail = () => {
         email: myEmail,
       })
       .then((res) => {
-        // console.log(res.data.writeTime, "댓글추가 성공");
-        setWriteTime(res.data.writeTime);
+        console.log(res, "댓글추가 성공");
+        handleReply();
       })
       .catch((err) => {
         console.log(err, "댓글 추가 실패");
-        console.log(cloneReplyList);
       });
   };
 
@@ -230,15 +253,17 @@ const FoodListDetail = () => {
             <h3 className="foodListDetail-reply-title">댓글</h3>
             <div className="reply-foodListDetail-container container">
               <div className="replyList">
-                {replyList.map((item, i) => {
+                {dbReply.map((item, i) => {
                   return (
                     <article className="reply-area" key={i}>
-                      <div className="replyList-id">{myName}</div>
+                      <div className="replyList-id">{item.name}</div>
 
                       <div className="replyList-foodListDetail-comment">
-                        {item}
+                        {item.content}
                       </div>
-                      <div className="replyList-writeTime">{writeTime}</div>
+                      <div className="replyList-writeTime">
+                        {item.writeTime}
+                      </div>
                     </article>
                   );
                 })}
@@ -251,6 +276,7 @@ const FoodListDetail = () => {
               className="foodListDetail-textarea-content"
               placeholder="댓글을 남겨주세요"
               value={reply}
+              onClick={notLogin}
               onChange={onchange}
               onKeyPress={handleReplyEnter}
             ></textarea>

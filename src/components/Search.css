@@ -1,0 +1,16 @@
+.autoSearch-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 80px;
+  right: 10px;
+}
+.autoSearch {
+  width: 550px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+}
+.search-input-container {
+  border: 1px solid blue;
+}

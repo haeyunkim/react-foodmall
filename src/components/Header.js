@@ -30,6 +30,10 @@ const Header = () => {
   const [myEmail, setMyEmail] = useState("");
   const [rrn, setRrn] = useState([]);
 
+  useEffect(() => {
+    console.log(loginModal);
+  }, []);
+
   const clickHome = () => {
     navigate("/");
 

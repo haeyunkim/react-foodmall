@@ -16,19 +16,16 @@ const Search = () => {
     handleData();
   }, []);
 
-  // useEffect(() => {
-  //   if (searchList.includes(word)) {
-  //     console.log("dd");
-  //   }
-  // }, [word]);
-
-  // const updateData = async() => {
-
-  //   let b = res.filter((list: ICity) => list.city.includes(keyword) === true)
-  //               .slice(0,10);
-  //   // console.log(b);
-  //   setKeyItems(b);
-  // }
+  useEffect(() => {
+    let filterData = searchList.filter((item) => {
+      return item.name.includes(word);
+    });
+    let sliceFilterData = filterData.slice(0, 5);
+    console.log(searchList, "전체데이터 searchlist");
+    console.log(filterData, "필터링된 데이터");
+    console.log(sliceFilterData, "필터링된 데이터 5개 자르기");
+    setData(sliceFilterData);
+  }, [word]);
 
   const handleData = async () => {
     await storeApi
@@ -48,6 +45,7 @@ const Search = () => {
 
   const onChange = (e) => {
     setWord(e.target.value);
+    console.log(word);
   };
 
   const handleEnter = async (e) => {
@@ -78,7 +76,11 @@ const Search = () => {
         </form>
         {word.length > 0 && word ? (
           <section className="autoSearch-container">
-            <div className="autoSearch"></div>
+            <div className="autoSearch">
+              {data.map((item, i) => {
+                return <p>{item.name}</p>;
+              })}
+            </div>
           </section>
         ) : (
           <></>

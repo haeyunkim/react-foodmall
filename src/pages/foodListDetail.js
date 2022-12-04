@@ -346,21 +346,21 @@ const BackdMap = ({ guData, findData }) => {
         <Map
           className="foodListDetail-map-container container"
           center={{
-            lat: Number(36.3285),
-            lon: Number(127.4235),
+            lat: findData.lat,
+            lng: findData.lon,
           }}
           // key={i}
         >
           <MapMarker
             position={{
-              lat: Number(36.3285686),
-              lon: Number(127.423584),
+              lat: findData.lat,
+              lng: findData.lon,
             }}
             // key={i + 1}
           ></MapMarker>
         </Map>
       </div>
-      ;{/* })} */}
+      {/* })} */}
     </>
   );
 };

@@ -54,7 +54,34 @@ const Search = () => {
         window.alert("검색어를 입력하세요!");
         return;
       }
+      if (e.key === "38") {
+        window.alert("down");
+        return;
+      }
+      if (e.key === "40") {
+        window.alert("up");
+        return;
+      }
+
       navigate(`/foodList/:${word}`);
+    }
+  };
+
+  const handleNavigate = (item, i) => {
+    if (data[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+    }
+    if (data[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+    }
+    if (data[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+    }
+    if (data[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+    }
+    if (data[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
     }
   };
 
@@ -78,7 +105,17 @@ const Search = () => {
           <section className="autoSearch-container">
             <div className="autoSearch">
               {data.map((item, i) => {
-                return <p>{item.name}</p>;
+                return (
+                  <p
+                    className="auto-search-input"
+                    key={i}
+                    onClick={() => {
+                      handleNavigate(item, i);
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                );
               })}
             </div>
           </section>

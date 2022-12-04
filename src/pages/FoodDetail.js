@@ -148,9 +148,6 @@ const FoodDetail = ({ BackList }) => {
             })}
           </div>
         </div>
-        {/* <div className="more-btn-container">
-          <button className="more-btn">더보기</button>
-        </div> */}
       </section>
 
       <div className="textarea-container container">
@@ -184,10 +181,6 @@ const BackdMap = ({ lat, id }) => {
               <Map
                 className="backMap-container container"
                 center={{ lat: Number(item.lat1), lng: Number(item.lng1) }}
-                // style={{
-                //   width: "100%",
-                //   height: "320px",
-                // }}
                 key={i}
               >
                 <MapMarker

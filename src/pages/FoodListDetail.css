@@ -12,6 +12,9 @@
   border: 1px solid black;
   border: none;
 }
+.foodListDetail-name-container {
+  display: flex;
+}
 .foodListDetail-img-wrapper {
   width: 100%;
   /* position: relative; */
@@ -70,12 +73,14 @@
   /* display: flex;
   align-items: center; */
 }
-.foodListDetail-name {
+.foodListDetail-name,
+.foodListDetail-score {
   margin-top: 20px;
   margin-left: 10px;
 }
 .foodListDetail-score {
   margin-left: 10px;
+  color: #ff8a81;
 }
 .foodListDetail-title {
   height: 200px;
@@ -191,4 +196,10 @@
 }
 .yellowStar {
   color: #fcc419;
+}
+.foodListDetail-map-container {
+  border: 1px solid red;
+  width: 300px;
+  height: 300px;
+  border: 1px solid red;
 }

@@ -52,45 +52,7 @@ const FoodList = () => {
       name2: "Dong-gu",
     },
   ]);
-
-  const [list2, setList2] = useState([
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/35606/454813_1456624978791_1929?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      name: "오문창 순대국밥",
-      address: "대전광역시 대덕구 한밭대로 1153",
-    },
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/623746_1591624863080130.jpg?fit=around|359:240&crop=359:240;*,*&output-format=jpg&output-quality=80",
-      name: "일당 감자탕",
-      address: "대전광역시 유성구 계룡로59번길 36",
-    },
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/573545_1594446229880774.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      name: "토미아",
-      address: "대전광역시 서구 청사서로 14",
-    },
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/610330_1592103089600282.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      name: "한영식당",
-      address: "대전광역시 중구 계룡료874번길 6",
-    },
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/1593527_1633873900871388.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      name: "성심당",
-      address: "대전광역시 동구 중앙로 215 대전역 2F",
-    },
-    {
-      image:
-        "https://mp-seoul-image-production-s3.mangoplate.com/522207_1628495150107028.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80",
-      name: "원조 태평소국밥",
-      address: "	대전광역시 중구 태평로 116",
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   const [list3, setList3] = useState([
     {
@@ -135,6 +97,50 @@ const FoodList = () => {
     },
   ]);
 
+  const [searchList, setSearchList] = useState([]);
+
+  useEffect(() => {
+    handleData();
+  }, []);
+
+  const handleBestZip = (item, i) => {
+    if (data[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+      return;
+    }
+    if (data[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+      return;
+    }
+    if (data[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+      return;
+    }
+    if (data[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+      return;
+    }
+    if (data[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
+      return;
+    }
+  };
+
+  const handleData = async () => {
+    await storeApi
+      .get("/all")
+      .then((res) => {
+        console.log(res, "전체데이터");
+        const splitData = res.data.list;
+        const splitData2 = splitData.splice(0, 6);
+        setData(splitData2);
+        setSearchList(splitData2);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const navigate = useNavigate();
   let { id } = useParams();
   const dispatch = useDispatch();
@@ -144,10 +150,6 @@ const FoodList = () => {
   const onSubmit = (e) => {
     e.preventDefault();
   };
-
-  // useEffect(() => {
-  //   console.log(guCount, "effect구DATA");
-  // }, [guCount]);
 
   const handleGu = (i) => {
     navigate(`/store/address/${i}`);
@@ -182,11 +184,17 @@ const FoodList = () => {
 
       <section className="re-area container">
         <div className="re-container">
-          <div className="re-name">인기 맛집</div>
+          <div className="re-name">인기 맛집 Best6</div>
           <div className="re-wrapper row ">
-            {list2.map((item, i) => {
+            {searchList.map((item, i) => {
               return (
-                <div className="re-list1 col" key={i}>
+                <div
+                  className="re-list1 col"
+                  key={i}
+                  onClick={() => {
+                    handleBestZip(item, i);
+                  }}
+                >
                   <img className="re-img" src={item.image} width="50%" />
                   <p className="re-title">{item.name}</p>
                   <p className="re-address">{item.address}</p>

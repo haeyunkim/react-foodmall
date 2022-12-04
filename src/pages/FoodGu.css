@@ -8,7 +8,14 @@
   border-bottom: 1px solid #dbdbdb;
   box-sizing: border-box;
 }
-
+.foodGu-starList {
+  margin-top: 10px;
+  outline: none;
+  background-color: #ffffff;
+  border: 2px solid #ff9443;
+  border-radius: 5px;
+  font-weight: 800;
+}
 #foodGu-list {
   cursor: pointer;
 }

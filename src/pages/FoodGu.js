@@ -90,6 +90,9 @@ const FoodGu = () => {
       <Header />
       <section id="gu-title-container" className="container">
         <div id="foodGu-title">{findId.title}</div>
+        <button className="foodGu-starList" onClick={() => {}}>
+          별점순으로 보기
+        </button>
       </section>
 
       {currentPost && guData.length > 0 ? (

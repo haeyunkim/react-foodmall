@@ -12,6 +12,7 @@ import storeApi from "../apis/storeApi";
 import axios from "axios";
 import replyApi from "../apis/reply";
 import { useNavigate } from "react-router-dom";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const FoodListDetail = () => {
   const navigate = useNavigate();
@@ -98,8 +99,9 @@ const FoodListDetail = () => {
     await storeApi
       .get(`/address?address=${findId.name2}`)
       .then((res) => {
-        console.log("구데이터 가져오기");
+        console.log(res.data.list, "gudata");
         setGuData(res.data.list);
+        console.log(findData);
       })
       .catch((err) => {
         console.log(err, "클릭에러");
@@ -210,16 +212,19 @@ const FoodListDetail = () => {
                 className="foodListDetail-detail-img3 col col-sm-6"
               />
 
-              <img
-                width="20%"
-                alt=""
-                className="col-3 foodListDetail-detail-img4 col-sm-6"
-              ></img>
+              <div className="col-3 back-detail-img4 col-sm-6">
+                <BackdMap guData={guData} findData={findData} />
+              </div>
             </section>
           </div>
 
           <section className="container foodListDetail-detail-name">
-            <div className="foodListDetail-name">{findData.name}</div>
+            <article className="foodListDetail-name-container">
+              <div className="foodListDetail-name">{findData.name}</div>
+              <div className="foodListDetail-score">
+                {findData.score.toFixed(1)}
+              </div>
+            </article>
 
             <div className="stars-container">
               {array.map((item, i) => {
@@ -330,6 +335,33 @@ const FoodListDetail = () => {
         <div></div>
       )}
     </div>
+  );
+};
+
+const BackdMap = ({ guData, findData }) => {
+  return (
+    <>
+      {/* {guData.map((item, i) => { */}
+      <div className="backMap-wrapper">
+        <Map
+          className="foodListDetail-map-container container"
+          center={{
+            lat: Number(36.3285),
+            lon: Number(127.4235),
+          }}
+          // key={i}
+        >
+          <MapMarker
+            position={{
+              lat: Number(36.3285686),
+              lon: Number(127.423584),
+            }}
+            // key={i + 1}
+          ></MapMarker>
+        </Map>
+      </div>
+      ;{/* })} */}
+    </>
   );
 };
 

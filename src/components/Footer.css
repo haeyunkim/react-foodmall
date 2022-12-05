@@ -8,6 +8,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+span,
+a {
+  margin-right: 10px;
+}
 .footer-wrap {
   min-width: 1070px;
   height: 208px;
@@ -19,11 +23,6 @@ a {
   display: flex;
   justify-content: flex-start;
   padding: 15px 0px;
-}
-span,
-a {
-  margin-right: 10px;
-  cursor: pointer;
 }
 .second-footer {
   display: flex;

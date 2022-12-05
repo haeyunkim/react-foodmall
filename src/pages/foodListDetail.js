@@ -194,7 +194,7 @@ const FoodListDetail = () => {
         <div className="foodListDetail-page">
           <div className="container">
             <section className="foodListDetail-img-wrapper row">
-              <img
+              {/* <img
                 width="20%"
                 alt=""
                 className="foodListDetail-detail-img1 col-sm-6 col"
@@ -210,9 +210,9 @@ const FoodListDetail = () => {
                 width="20%"
                 alt=""
                 className="foodListDetail-detail-img3 col col-sm-6"
-              />
+              /> */}
 
-              <div className="col-3 back-detail-img4 col-sm-6">
+              <div className="col-3 foodlistDetail-detail-img4 col-sm-6">
                 <BackdMap guData={guData} findData={findData} />
               </div>
             </section>
@@ -341,7 +341,6 @@ const FoodListDetail = () => {
 const BackdMap = ({ guData, findData }) => {
   return (
     <>
-      {/* {guData.map((item, i) => { */}
       <div className="backMap-wrapper">
         <Map
           className="foodListDetail-map-container container"
@@ -349,18 +348,15 @@ const BackdMap = ({ guData, findData }) => {
             lat: findData.lat,
             lng: findData.lon,
           }}
-          // key={i}
         >
           <MapMarker
             position={{
               lat: findData.lat,
               lng: findData.lon,
             }}
-            // key={i + 1}
           ></MapMarker>
         </Map>
       </div>
-      {/* })} */}
     </>
   );
 };

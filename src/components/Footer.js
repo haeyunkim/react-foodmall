@@ -5,17 +5,17 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <Container className="footer-container container ">
-      <div className="footer-wrap ">
+      <div className="footer-wrap">
         <section className="first-footer">
           <a>개인정보처리방침</a>
           <span className="gray">|</span>
           <a>이용약관</a>
           <span className="gray location-service">|</span>
-          <a className="location-service">위치기반 서비스 이용약관</a>
+          <a>위치기반 서비스 이용약관</a>
         </section>
 
         <section className="second-footer">
-          <a className="meal-title">(주)오늘의식사</a>
+          <a>(주)오늘의식사</a>
           <span className="gray">|</span>
           <a>대표이사 : 김회윤,민인규</a>
         </section>

@@ -84,8 +84,10 @@ const SearchPage = () => {
   return (
     <>
       <Header />
-      <div>{word.slice(1)}에 대한 음식점입니다</div>
-      <p>총{count}건</p>
+      <section className="count-container container">
+        <div>{word.slice(1)}에 대한 음식점입니다</div>
+        <p>총{count}건</p>
+      </section>
       {searchList.map((item, i) => {
         return (
           <div key={i}>

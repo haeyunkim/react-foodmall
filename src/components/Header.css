@@ -9,6 +9,9 @@
   font-weight: bold;
   font-family: "Poor Story", cursive;
 }
+.daejeon-taste {
+  cursor: pointer;
+}
 #taste-daejeon-wrapper:hover {
   transform: scale(1.05);
 }

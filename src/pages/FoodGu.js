@@ -46,7 +46,9 @@ const FoodGu = () => {
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); //현재 페이지의 첫번째 아이템 인덱스
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); //현재 페이지의 마지막 아이템 인덱스
   const [currentPost, setCurrentPost] = useState(0); //현재 페이지에서 보여지는 아이템들
-  const [count, setCount] = useState("");
+  const [count, setCount] = useState([]);
+  const [highAlert, setHighAlert] = useState([]);
+  const [lowAlert, setLowAlert] = useState([]);
 
   let findId = title.find((item, i) => {
     return item.id === Number(id);
@@ -67,7 +69,15 @@ const FoodGu = () => {
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setIndexOfLastPost(currentPage * postPerPage);
     setCurrentPost(guData.slice(indexOfFirstPost, indexOfLastPost));
-  }, [guData, currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
+  }, [
+    guData,
+    currentPage,
+    indexOfFirstPost,
+    indexOfLastPost,
+    postPerPage,
+    highAlert,
+    // lowAlert,
+  ]);
 
   const handleGuData = async () => {
     await storeApi
@@ -81,6 +91,14 @@ const FoodGu = () => {
       });
   };
 
+  const handleHighStarList = () => {
+    setHighAlert(!guData.sort((a, b) => b.score - a.score));
+  };
+
+  // const handleLowStarList = () => {
+  //   setLowAlert(guData.sort((a, b) => a.score - b.score));
+  // };
+
   const handlePageChange = (e) => {
     setCurrentPage(e);
   };
@@ -90,9 +108,22 @@ const FoodGu = () => {
       <Header />
       <section id="gu-title-container" className="container">
         <div id="foodGu-title">{findId.title}</div>
-        <button className="foodGu-starList" onClick={() => {}}>
-          별점순으로 보기
+        <button
+          className="foodGu-starList"
+          onClick={() => {
+            handleHighStarList();
+          }}
+        >
+          별점 높은순으로 보기
         </button>
+        {/* <button
+          className="foodGu-starList2"
+          onClick={() => {
+            handleLowStarList();
+          }}
+        >
+          별점 낮은순으로 보기
+        </button> */}
       </section>
 
       {currentPost && guData.length > 0 ? (

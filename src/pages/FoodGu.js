@@ -48,7 +48,8 @@ const FoodGu = () => {
   const [currentPost, setCurrentPost] = useState(0); //현재 페이지에서 보여지는 아이템들
   const [count, setCount] = useState([]);
   const [highAlert, setHighAlert] = useState([]);
-  const [lowAlert, setLowAlert] = useState([]);
+  const [modal, setModal] = useState(true);
+  // const [lowAlert, setLowAlert] = useState([]);
 
   let findId = title.find((item, i) => {
     return item.id === Number(id);
@@ -69,6 +70,7 @@ const FoodGu = () => {
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setIndexOfLastPost(currentPage * postPerPage);
     setCurrentPost(guData.slice(indexOfFirstPost, indexOfLastPost));
+    console.log(modal);
   }, [
     guData,
     currentPage,
@@ -76,7 +78,7 @@ const FoodGu = () => {
     indexOfLastPost,
     postPerPage,
     highAlert,
-    // lowAlert,
+    modal,
   ]);
 
   const handleGuData = async () => {
@@ -92,12 +94,17 @@ const FoodGu = () => {
   };
 
   const handleHighStarList = () => {
-    setHighAlert(!guData.sort((a, b) => b.score - a.score));
-  };
+    setModal(!modal);
 
-  // const handleLowStarList = () => {
-  //   setLowAlert(guData.sort((a, b) => a.score - b.score));
-  // };
+    if (modal === true) {
+      setHighAlert(guData.sort((a, b) => b.score - a.score));
+      return;
+    }
+    if (modal === false) {
+      setHighAlert(guData.sort((a, b) => a.score - b.score));
+      return;
+    }
+  };
 
   const handlePageChange = (e) => {
     setCurrentPage(e);
@@ -114,16 +121,8 @@ const FoodGu = () => {
             handleHighStarList();
           }}
         >
-          별점 높은순으로 보기
+          별점 순으로 보기
         </button>
-        {/* <button
-          className="foodGu-starList2"
-          onClick={() => {
-            handleLowStarList();
-          }}
-        >
-          별점 낮은순으로 보기
-        </button> */}
       </section>
 
       {currentPost && guData.length > 0 ? (

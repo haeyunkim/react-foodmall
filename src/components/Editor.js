@@ -3,62 +3,261 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useEffect } from "react";
 import storeApi from "../apis/storeApi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Editor = () => {
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const [allData, setAllData] = useState([]);
+  const [Korean, setKorean] = useState([]);
+  const [Western, setWestern] = useState([]);
+  const [chinese, setChinese] = useState([]);
+  const [japanese, setJapanese] = useState([]);
 
   useEffect(() => {
-    handleAllStoreData();
+    // handleAllData();
+    handleKoreanData();
+    handleWesternData();
+    handleChineseData();
+    handleJapaneseData();
   }, []);
 
-  const handleAllStoreData = () => {
+  const handleKoreanData = () => {
     storeApi
-      .get("/all")
+      .get("/type?type=Korean")
       .then((res) => {
-        console.log(res, "전체데이터 성공");
-        setData(res.data.list);
+        console.log(res, "한국음식 성공");
+
+        const copyKorean = res.data.list;
+        setKorean(copyKorean.splice(0, 5));
       })
       .catch((err) => {
-        console.log(err, "전체 데이터 에러");
+        console.log(err, "한국음식 에러");
       });
+  };
+
+  const handleWesternData = () => {
+    storeApi
+      .get("/type?type=Western")
+      .then((res) => {
+        console.log(res, "서양음식 성공");
+
+        const copyWestern = res.data.list;
+        setWestern(copyWestern.splice(0, 5));
+      })
+      .catch((err) => {
+        console.log(err, "서양음식 에러");
+      });
+  };
+
+  const handleChineseData = () => {
+    storeApi
+      .get("/type?type=Chinese")
+      .then((res) => {
+        console.log(res, "중국음식 성공");
+
+        const copyChinese = res.data.list;
+        setChinese(copyChinese.splice(0, 5));
+      })
+      .catch((err) => {
+        console.log(err, "중국음식 에러");
+      });
+  };
+
+  const handleJapaneseData = () => {
+    storeApi
+      .get("/type?type=Japanese")
+      .then((res) => {
+        console.log(res, "일본음식 성공");
+
+        const copyJapanese = res.data.list;
+        setJapanese(copyJapanese.splice(0, 5));
+      })
+      .catch((err) => {
+        console.log(err, "일본음식 에러");
+      });
+  };
+
+  const handleKoreanZip = (item, i) => {
+    if (Korean[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+      return;
+    }
+    if (Korean[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+      return;
+    }
+    if (Korean[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+      return;
+    }
+    if (Korean[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+      return;
+    }
+    if (Korean[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
+      return;
+    }
+  };
+
+  const handleWesternZip = (item, i) => {
+    if (Western[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+      return;
+    }
+    if (Western[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+      return;
+    }
+    if (Western[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+      return;
+    }
+    if (Western[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+      return;
+    }
+    if (Western[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
+      return;
+    }
+  };
+
+  const handleJapaneseZip = (item, i) => {
+    if (japanese[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+      return;
+    }
+    if (japanese[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+      return;
+    }
+    if (japanese[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+      return;
+    }
+    if (japanese[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+      return;
+    }
+    if (japanese[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
+      return;
+    }
+  };
+
+  const handleChineseZip = (item, i) => {
+    if (chinese[i].address.includes("대덕구")) {
+      navigate(`/store/address/0/${item.id}`);
+      return;
+    }
+    if (chinese[i].address.includes("유성구")) {
+      navigate(`/store/address/1/${item.id}`);
+      return;
+    }
+    if (chinese[i].address.includes("서구")) {
+      navigate(`/store/address/2/${item.id}`);
+      return;
+    }
+    if (chinese[i].address.includes("중구")) {
+      navigate(`/store/address/3/${item.id}`);
+      return;
+    }
+    if (chinese[i].address.includes("동구")) {
+      navigate(`/store/address/4/${item.id}`);
+      return;
+    }
   };
 
   return (
     <div className="container editor-container">
       <div className="editor-title-wrapper">
+        <h2 className="editor-title">한식 대표 맛집 Best5</h2>
+      </div>
+      <section className="korean-container container">
+        {Korean.map((item, i) => {
+          return (
+            <div className="container editor-wrapper row" key={i}>
+              <div
+                className="editor-box col"
+                onClick={() => {
+                  handleKoreanZip(item, i);
+                }}
+              >
+                <img className="editor-img" />
+                <h2 className="editor-item1">{item.name}</h2>
+                <p className="editor-item2">{item.address}</p>
+              </div>
+            </div>
+          );
+        })}
+      </section>
+      <div className="editor-title-wrapper">
         <h2 className="editor-title">양식 대표 맛집 Best5</h2>
       </div>
-      {data.map((item, i) => {
-        return (
-          <div className="container editor-wrapper row">
-            <div className="editor-box col">
-              <img
-                src="https://mp-seoul-image-production-s3.mangoplate.com/1623/322577_1564500533408_11790?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80"
-                className="editor-img"
-              />
-              <h2 className="editor-item1">칼국수 맛집</h2>
-              <p className="editor-item2">1</p>
+      <section className="western-container container">
+        {Western.map((item, i) => {
+          return (
+            <div className="container editor-wrapper row" key={i}>
+              <div
+                className="editor-box col"
+                onClick={() => {
+                  handleWesternZip(item, i);
+                }}
+              >
+                <img className="editor-img" />
+                <h2 className="editor-item1">{item.name}</h2>
+                <p className="editor-item2">{item.address}</p>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </section>
 
-      {/* <div className="editor-box col">
-          <img
-            src="https://media.istockphoto.com/photos/samgyetang-ginseng-chicken-soup-picture-id475396574?k=20&m=475396574&s=612x612&w=0&h=cRyhGkF8wLKHtWJIjpy0TKC8AyvHD5UZjOo-RiJ6t5Q="
-            className="editor-img"
-          />
-          <h2 className="editor-item1">삼계탕 맛집</h2>
-          <p className="editor-item2">2</p>
-        </div>
+      <div className="editor-title-wrapper">
+        <h2 className="editor-title">중식 대표 맛집 Best5</h2>
+      </div>
 
-        <div className="editor-box col">
-          <img
-            src="https://t1.daumcdn.net/thumb/R720x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/6V7H/image/co3xWP4HiXvSgy41Fg4RsXWECXM.jpg"
-            className="editor-img"
-          />
-          <h2 className="editor-item1">설렁탕 맛집</h2>
-          <p className="editor-item2">3</p>
-        </div> */}
+      <section className="chinese-container container">
+        {chinese.map((item, i) => {
+          return (
+            <div className="container  row" key={i}>
+              <div
+                className="editor-box col"
+                onClick={() => {
+                  handleChineseZip(item, i);
+                }}
+              >
+                <img className="editor-img" />
+                <h2 className="editor-item1">{item.name}</h2>
+                <p className="editor-item2">{item.address}</p>
+              </div>
+            </div>
+          );
+        })}
+      </section>
+
+      <div className="editor-title-wrapper">
+        <h2 className="editor-title">일식 대표 맛집 Best5</h2>
+      </div>
+      <section className="japanese-container container">
+        {japanese.map((item, i) => {
+          return (
+            <div className="container editor-wrapper row" key={i}>
+              <div
+                className="editor-box col"
+                onClick={() => {
+                  handleJapaneseZip(item, i);
+                }}
+              >
+                <img className="editor-img" />
+                <h2 className="editor-item1">{item.name}</h2>
+                <p className="editor-item2">{item.address}</p>
+              </div>
+            </div>
+          );
+        })}
+      </section>
     </div>
   );
 };

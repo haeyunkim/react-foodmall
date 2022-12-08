@@ -174,12 +174,12 @@ const Editor = () => {
       <div className="editor-title-wrapper">
         <h2 className="editor-title">한식 대표 맛집 Best5</h2>
       </div>
-      <section className="korean-container container">
+      <section className="korean-container row">
         {Korean.map((item, i) => {
           return (
-            <div className="container editor-wrapper row" key={i}>
+            <div className="editor-wrapper col" key={i}>
               <div
-                className="editor-box col"
+                className="editor-box"
                 onClick={() => {
                   handleKoreanZip(item, i);
                 }}
@@ -195,12 +195,12 @@ const Editor = () => {
       <div className="editor-title-wrapper">
         <h2 className="editor-title">양식 대표 맛집 Best5</h2>
       </div>
-      <section className="western-container container">
+      <section className="western-container row">
         {Western.map((item, i) => {
           return (
-            <div className="container editor-wrapper row" key={i}>
+            <div className="container editor-wrapper col" key={i}>
               <div
-                className="editor-box col"
+                className="editor-box"
                 onClick={() => {
                   handleWesternZip(item, i);
                 }}
@@ -218,12 +218,12 @@ const Editor = () => {
         <h2 className="editor-title">중식 대표 맛집 Best5</h2>
       </div>
 
-      <section className="chinese-container container">
+      <section className="chinese-container row">
         {chinese.map((item, i) => {
           return (
-            <div className="container  row" key={i}>
+            <div className="container col" key={i}>
               <div
-                className="editor-box col"
+                className="editor-box"
                 onClick={() => {
                   handleChineseZip(item, i);
                 }}
@@ -240,12 +240,12 @@ const Editor = () => {
       <div className="editor-title-wrapper">
         <h2 className="editor-title">일식 대표 맛집 Best5</h2>
       </div>
-      <section className="japanese-container container">
+      <section className="japanese-container row">
         {japanese.map((item, i) => {
           return (
-            <div className="container editor-wrapper row" key={i}>
+            <div className="editor-wrapper col" key={i}>
               <div
-                className="editor-box col"
+                className="editor-box"
                 onClick={() => {
                   handleJapaneseZip(item, i);
                 }}

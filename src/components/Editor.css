@@ -21,6 +21,7 @@
 }
 .editor-wrapper {
   border-bottom: 1px solid #6c757d;
+  margin-top: 15px;
 }
 .editor-item1 {
   margin-top: 10px;
@@ -42,12 +43,4 @@
 .chinese-container,
 .japanese-container {
   display: flex;
-}
-
-@media screen and (max-width: 48rem) {
-  .editor-box img {
-    position: relative;
-    left: 12px;
-    width: 300px;
-  }
 }
